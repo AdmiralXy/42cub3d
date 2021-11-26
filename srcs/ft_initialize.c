@@ -1,7 +1,5 @@
 #include "ft_cub3d.h"
 
-# define moveSpeed 1.00001 // the constant value is in squares/second
-
 int	ft_exit(void *data)
 {
 	(void)data;
@@ -14,6 +12,8 @@ int	ft_exit(void *data)
 
 int	ft_key_up(void *data)
 {
+	double moveSpeed = 0.25;
+
 	// move forward if no wall in front of you
 	int x_step = (int) (posX + dirX * moveSpeed);
 	int y_step = (int) (posY + dirY * moveSpeed);
@@ -28,7 +28,7 @@ int	ft_key_up(void *data)
 
 int	ft_key_left(void *data)
 {
-	double rotSpeed = 0.15;
+	double rotSpeed = 0.01;
 	// both camera direction and camera plane must be rotated
 	double oldDirX = dirX;
 	dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
@@ -42,6 +42,8 @@ int	ft_key_left(void *data)
 
 int	ft_key_down(void *data)
 {
+	double moveSpeed = 0.25;
+
 	int x_step = (int) (posX - dirX * moveSpeed);
 	int y_step = (int) (posY - dirY * moveSpeed);
 	if (x_step <= 24 && y_step <= 24 && x_step > 0 && y_step > 0)
@@ -55,7 +57,7 @@ int	ft_key_down(void *data)
 
 int	ft_key_right(void *data)
 {
-	double rotSpeed = 0.15;
+	double rotSpeed = 0.01;
 
 	//both camera direction and camera plane must be rotated
 	double oldDirX = dirX;
@@ -92,8 +94,10 @@ int	ft_key_mlx(int keycode, void *data)
 
 void	ft_initialize_keys(void)
 {
-	mlx_do_key_autorepeaton(env->mlx);
-	mlx_hook(env->mlx_win, 17, 1L << 17, ft_exit, NULL);
+	//mlx_do_key_autorepeaton(env->mlx);
+	mlx_hook(env->mlx_win, 17, 17, ft_exit, NULL);
+//	mlx_hook(env->mlx_win, 2, 0, ft_key_mlx, NULL);
+//	mlx_hook(env->mlx_win, 3, 0, ft_key_mlx, NULL);
 	mlx_key_hook(env->mlx_win, ft_key_mlx, NULL);
 }
 
