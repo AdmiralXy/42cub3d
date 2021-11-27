@@ -94,11 +94,11 @@ int	ft_key_mlx(int keycode, void *data)
 
 void	ft_initialize_keys(void)
 {
-	//mlx_do_key_autorepeaton(env->mlx);
+	mlx_do_key_autorepeaton(env->mlx);
 	mlx_hook(env->mlx_win, 17, 17, ft_exit, NULL);
-//	mlx_hook(env->mlx_win, 2, 0, ft_key_mlx, NULL);
-//	mlx_hook(env->mlx_win, 3, 0, ft_key_mlx, NULL);
-	mlx_key_hook(env->mlx_win, ft_key_mlx, NULL);
+	mlx_hook(env->mlx_win, 2, 0, ft_key_mlx, NULL);
+	mlx_hook(env->mlx_win, 3, 0, ft_key_mlx, NULL);
+	//mlx_key_hook(env->mlx_win, ft_key_mlx, NULL);
 }
 
 int	ft_initialize(void)

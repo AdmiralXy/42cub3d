@@ -2,8 +2,8 @@ NAME = cub3d
 CC = gcc
 INC = /usr/include
 INCLIB = $(INC)/minilibx_linux/lib
-INCLUDES = ft_cub3d.h
-CFLAGS = -Wall -Wextra -Werror -I$(INC) -g -I. -Ilibft
+INCLUDES = includes/ft_cub3d.h
+CFLAGS = -Wall -Wextra -Werror -I$(INC) -g -Iincludes -Ilibft
 
 MAC_MINILIBX = $(MINILIBX_DIRECTORY)libmlx.a
 MAC_MINILIBX_DIRECTORY = minilibx_macos
@@ -26,11 +26,11 @@ else
 	CFLAGS += -Iminilibx_linux
 endif
 
-.c.o: $(INCLUDES)
+%.o: %.c $(INCLUDES)
 	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 	@echo "Building: \033[0;34m$<\033[0m"
 
-$(NAME): $(OBJS) $(INCLUDES)
+$(NAME): $(OBJS)
 	@echo "Building: \033[0;34m42libft\033[0m"
 	@make -C libft -s
 ifneq ($(UNAME), Darwin)

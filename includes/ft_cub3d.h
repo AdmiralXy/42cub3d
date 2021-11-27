@@ -21,7 +21,11 @@
 
 // Constants controls
 # if __APPLE__
-#  define KEY_EXIT 0
+#  define KEY_EXIT 53
+#  define KEY_UP 13
+#  define KEY_DOWN 1
+#  define KEY_LEFT 0
+#  define KEY_RIGHT 2
 # else
 #  define KEY_EXIT 65307
 #  define KEY_UP 119
