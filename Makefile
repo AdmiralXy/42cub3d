@@ -9,7 +9,7 @@ MAC_MINILIBX = $(MINILIBX_DIRECTORY)libmlx.a
 MAC_MINILIBX_DIRECTORY = minilibx_macos
 MAC_MINILIBX_HEADERS = $(MINILIBX_DIRECTORY)
 
-SRCS = srcs/ft_cub3d.c \
+SRCS = srcs/ft_main.c \
 		srcs/ft_initialize.c \
 		srcs/ft_draw_utils.c \
 		srcs/ft_parser.c \
