@@ -111,6 +111,8 @@ int	ft_initialize_graphics(t_env *env)
 		ft_camera_left(env, 3.15);
 	if (env->p.direction == EAST)
 		ft_camera_right(env, 1.55);
+	if (env->p.direction == WEST)
+		ft_camera_right(env, 4.75);
 	return (1);
 }
 
