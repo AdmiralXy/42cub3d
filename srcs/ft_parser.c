@@ -1,14 +1,22 @@
 #include "ft_cub3d.h"
 
+/*
+ * Документация:
+ * Парсер должен заполнить: env->world_height, env->world_width - длина и ширина мира
+ * Парсер должен заполнить: env->world_map - двумерный массив int'ов, сам мир
+*/
+
 int	ft_parser()
 {
 	int	i;
 
-	env->world_map = malloc(sizeof(int *) * 24);
+	env->world_width = 24;
+	env->world_height = 24;
+	env->world_map = malloc(sizeof(int *) * env->world_height);
 	i = 0;
 	while (i < 24)
 	{
-		env->world_map[i] = malloc(sizeof(int) * 24);
+		env->world_map[i] = malloc(sizeof(int) * env->world_width);
 		i++;
 	}
 	env->world_map[0][0] = 1;

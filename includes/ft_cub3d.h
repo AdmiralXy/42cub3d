@@ -15,11 +15,10 @@
 # define WIN_WIDTH 720
 # define texWidth 64
 # define texHeight 64
-# define COLOR_RED 0xFF0000
-# define COLOR_GREEN 0x00FF00
-# define COLOR_BLUE 0x0000ff
-# define COLOR_WHITE 0xFFFFFF
-# define COLOR_YELLOW 0xFFFF00
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
 
 // Constants controls
 # if __APPLE__
@@ -54,6 +53,9 @@ typedef struct s_env
 	void	*img_ptr;
 	char	*img_data;
 	int		**world_map;
+	int		world_width;
+	int		world_height;
+	int		**textures;
 }	t_env;
 
 // Globals

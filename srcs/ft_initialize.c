@@ -1,8 +1,36 @@
 #include "ft_cub3d.h"
 
+void ft_clear_world(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < env->world_height)
+	{
+		free(env->world_map[i]);
+		i++;
+	}
+	free(env->world_map);
+}
+
+void ft_clear_textures(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		free(env->textures[i]);
+		i++;
+	}
+	free(env->textures);
+}
+
 int	ft_exit(void *data)
 {
 	(void)data;
+	ft_clear_textures();
+	ft_clear_world();
 	mlx_destroy_image(env->mlx, env->img_ptr);
 	mlx_clear_window(env->mlx, env->mlx_win);
 	mlx_destroy_window(env->mlx, env->mlx_win);
@@ -21,9 +49,10 @@ int	ft_key_up(void *data)
 	{
 		if(env->world_map[x_step][(int)(posY)] == 0) posX += dirX * moveSpeed;
 		if(env->world_map[(int)(posX)][y_step] == 0) posY += dirY * moveSpeed;
+		return (1);
 	}
 	(void)data;
-	return (1);
+	return (0);
 }
 
 int	ft_key_left(void *data)
@@ -50,9 +79,10 @@ int	ft_key_down(void *data)
 	{
 		if(env->world_map[x_step][(int)(posY)] == 0) posX -= dirX * moveSpeed;
 		if(env->world_map[(int)(posX)][y_step] == 0) posY -= dirY * moveSpeed;
+		return (1);
 	}
 	(void)data;
-	return (1);
+	return (0);
 }
 
 int	ft_key_right(void *data)
@@ -75,20 +105,26 @@ void ft_draw();
 
 int	ft_key_mlx(int keycode, void *data)
 {
+	int redraw;
+
+	redraw = 0;
 	(void)data;
 	printf("Pressed: %d\n", keycode);
 	if (keycode == KEY_EXIT)
 		ft_exit(NULL);
 	if (keycode == KEY_UP)
-		ft_key_up(NULL);
+		redraw |= ft_key_up(NULL);
 	if (keycode == KEY_LEFT)
-		ft_key_left(NULL);
+		redraw |= ft_key_left(NULL);
 	if (keycode == KEY_DOWN)
-		ft_key_down(NULL);
+		redraw |= ft_key_down(NULL);
 	if (keycode == KEY_RIGHT)
-		ft_key_right(NULL);
-	ft_drawing_test();
-	ft_draw();
+		redraw |= ft_key_right(NULL);
+	if (redraw)
+	{
+		ft_drawing_test();
+		ft_draw();
+	}
 	return (0);
 }
 
@@ -124,5 +160,8 @@ int	ft_initialize(void)
 		return (0);
 	ft_bzero(env->img_data, WIN_WIDTH * WIN_HEIGHT * (env->bpp / 8));
 	ft_initialize_keys();
+	env->textures = malloc(sizeof(int *) * 4);
+	if (!env->textures)
+		return (0);
 	return (1);
 }

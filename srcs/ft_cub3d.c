@@ -21,30 +21,23 @@ void drawBuffer(int buffer[1280][720])
 	}
 }
 
-int texture[8][texWidth * texHeight];
+int **texture;
+
+char *get_image(char *path, int width, int height)
+{
+	int *image;
+	char *image_data;
+	int image_info;
+
+	image = mlx_xpm_file_to_image(env->mlx, path, &width, &height);
+	image_data = mlx_get_data_addr(image, &image_info, &image_info, &image_info);
+	//mlx_destroy_image(env->mlx, image);
+	return (image_data);
+}
 
 void ft_drawing_test()
 {
 	ft_bzero(env->img_data, WIN_WIDTH * WIN_HEIGHT * (env->bpp / 8));
-
-	for(int x = 0; x < texWidth; x++)
-	{
-		for(int y = 0; y < texHeight; y++)
-		{
-			int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
-			//int xcolor = x * 256 / texWidth;
-			int ycolor = y * 256 / texHeight;
-			int xycolor = y * 128 / texHeight + x * 128 / texWidth;
-			texture[0][texWidth * y + x] = 65536 * 254 * (x != y && x != texWidth - y); //flat red texture with black cross
-			texture[1][texWidth * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
-			texture[2][texWidth * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
-			texture[3][texWidth * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor; //xor greyscale
-			texture[4][texWidth * y + x] = 256 * xorcolor; //xor green
-			texture[5][texWidth * y + x] = 65536 * 192 * (x % 16 && y % 16); //red bricks
-			texture[6][texWidth * y + x] = 65536 * ycolor; //red gradient
-			texture[7][texWidth * y + x] = 128 + 256 * 128 + 65536 * 128; //flat grey texture
-		}
-	}
 
 	for(int x = 0; x < WIN_HEIGHT; x++)
 	{
@@ -192,6 +185,15 @@ int	main(void)
 	// the 2d raycaster version of camera plane
 	planeX = 0;
 	planeY = 0.66;
+	texture = malloc(sizeof(int *) * 8);
+	texture[0] = (int *)get_image("pics/redbrick.xpm", 64, 64);
+	texture[1] = (int *)get_image("pics/barrel.xpm", 64, 64);
+	texture[2] = (int *)get_image("pics/colorstone.xpm", 64, 64);
+	texture[3] = (int *)get_image("pics/eagle.xpm", 64, 64);
+	texture[4] = (int *)get_image("pics/greystone.xpm", 64, 64);
+	texture[5] = (int *)get_image("pics/purplestone.xpm", 64, 64);
+	texture[6] = (int *)get_image("pics/wood.xpm", 64, 64);
+	texture[7] = (int *)get_image("pics/greenlight.xpm", 64, 64);
 	ft_drawing_test();
 	ft_draw();
 	mlx_loop(env->mlx);
