@@ -1,6 +1,6 @@
 #include "ft_cub3d.h"
 
-unsigned int	ft_rgb_to_hex(int r, int g, int b)
+int	ft_rgb_to_hex(int r, int g, int b)
 {
 	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }

@@ -8,6 +8,17 @@ void	ft_draw(t_env *env)
 void ft_drawing_test(t_env *env)
 {
 	ft_bzero(env->img_data, WIN_WIDTH * WIN_HEIGHT * (env->bpp / 8));
+	// FLOOR/CEIL
+	for(int y = WIN_HEIGHT / 2; y < WIN_HEIGHT; y++)
+	{
+		for(int x = 0; x < WIN_WIDTH * 2; x++)
+		{
+			// floor
+			ft_put_pixel(env, ft_point(x, y), (int)env->floor_color);
+			// ceil
+			ft_put_pixel(env, ft_point(x, WIN_HEIGHT - y - 1), (int)env->ceil_color);
+		}
+	}
 
 	for(int x = 0; x < WIN_HEIGHT; x++)
 	{

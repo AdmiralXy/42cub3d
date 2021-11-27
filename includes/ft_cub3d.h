@@ -69,41 +69,41 @@ typedef struct s_texture
 
 typedef struct s_env
 {
-	void			*mlx;
-	void			*mlx_win;
-	int				bpp;
-	int				size_line;
-	int				endian;
-	void			*img_ptr;
-	char			*img_data;
-	int				**world_map;
-	int				world_width;
-	int				world_height;
-	unsigned int	floor_color;
-	unsigned int	ceil_color;
-	t_texture		**textures;
-	t_player		p;
+	void		*mlx;
+	void		*mlx_win;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	void		*img_ptr;
+	char		*img_data;
+	int			**world_map;
+	int			world_width;
+	int			world_height;
+	int			floor_color;
+	int			ceil_color;
+	t_texture	**textures;
+	t_player	p;
 }	t_env;
 
 // Initialization functions
-int				ft_initialize(t_env *env);
-int				ft_initialize_graphics(t_env *env);
+int			ft_initialize(t_env *env);
+int			ft_initialize_graphics(t_env *env);
 
 // Parser functions
-int				ft_parser(t_env *env);
+int			ft_parser(t_env *env);
 
 // Drawing utilities functions
-unsigned int	ft_rgb_to_hex(int r, int g, int b);
-t_point			ft_point(int x, int y);
-void			ft_put_pixel(t_env *env, t_point point, int color);
+int			ft_rgb_to_hex(int r, int g, int b);
+t_point		ft_point(int x, int y);
+void		ft_put_pixel(t_env *env, t_point point, int color);
 
 // Textures functions
-t_texture		*ft_get_texture(t_env *env, char *path);
+t_texture	*ft_get_texture(t_env *env, char *path);
 
 // Moving functions
-int				ft_move_forward(t_env *env);
-int				ft_move_back(t_env *env);
-int				ft_camera_left(t_env *env, double angle);
-int				ft_camera_right(t_env *env, double angle);
+int			ft_move_forward(t_env *env);
+int			ft_move_back(t_env *env);
+int			ft_camera_left(t_env *env, double angle);
+int			ft_camera_right(t_env *env, double angle);
 
 #endif
