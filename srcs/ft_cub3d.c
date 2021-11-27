@@ -5,9 +5,46 @@ void	ft_draw(void)
 	mlx_put_image_to_window(env->mlx, env->mlx_win, env->img_ptr, 0, 0);
 }
 
+void drawBuffer(int buffer[1280][720])
+{
+	int i = 0, j;
+
+	while (i < WIN_HEIGHT)
+	{
+		j = 0;
+		while (j < WIN_WIDTH)
+		{
+			ft_put_pixel(ft_point(j, i), buffer[i][j]);
+			j++;
+		}
+		i++;
+	}
+}
+
+int texture[8][texWidth * texHeight];
+
 void ft_drawing_test()
 {
 	ft_bzero(env->img_data, WIN_WIDTH * WIN_HEIGHT * (env->bpp / 8));
+
+	for(int x = 0; x < texWidth; x++)
+	{
+		for(int y = 0; y < texHeight; y++)
+		{
+			int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
+			//int xcolor = x * 256 / texWidth;
+			int ycolor = y * 256 / texHeight;
+			int xycolor = y * 128 / texHeight + x * 128 / texWidth;
+			texture[0][texWidth * y + x] = 65536 * 254 * (x != y && x != texWidth - y); //flat red texture with black cross
+			texture[1][texWidth * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
+			texture[2][texWidth * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
+			texture[3][texWidth * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor; //xor greyscale
+			texture[4][texWidth * y + x] = 256 * xorcolor; //xor green
+			texture[5][texWidth * y + x] = 65536 * 192 * (x % 16 && y % 16); //red bricks
+			texture[6][texWidth * y + x] = 65536 * ycolor; //red gradient
+			texture[7][texWidth * y + x] = 128 + 256 * 128 + 65536 * 128; //flat grey texture
+		}
+	}
 
 	for(int x = 0; x < WIN_HEIGHT; x++)
 	{
@@ -91,11 +128,16 @@ void ft_drawing_test()
 		//for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
 		//because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
 		//steps, but we subtract deltaDist once because one step more into the wall was taken above.
+
+		//Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
 		if(side == 0) perpWallDist = (sideDistX - deltaDistX);
 		else          perpWallDist = (sideDistY - deltaDistY);
 
 		//Calculate height of line to draw on screen
 		int lineHeight = (int)(WIN_HEIGHT / perpWallDist);
+
+
+		int pitch = 1;
 
 		//calculate lowest and highest pixel to fill in current stripe
 		int drawStart = -lineHeight / 2 + WIN_HEIGHT / 2;
@@ -103,22 +145,35 @@ void ft_drawing_test()
 		int drawEnd = lineHeight / 2 + WIN_HEIGHT / 2;
 		if(drawEnd >= WIN_HEIGHT) drawEnd = WIN_HEIGHT - 1;
 
-		//choose wall color
-		int color;
-		switch(env->world_map[mapX][mapY])
+		//texturing calculations
+		int texNum = env->world_map[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+
+		//calculate value of wallX
+		double wallX; //where exactly the wall was hit
+		if(side == 0) wallX = posY + perpWallDist * rayDirY;
+		else          wallX = posX + perpWallDist * rayDirX;
+		wallX -= floor((wallX));
+
+		//x coordinate on the texture
+		int texX = (int)(wallX * (double)(texWidth));
+		if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
+		if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
+
+		// TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
+		// How much to increase the texture coordinate per screen pixel
+		double step = 1.0 * texHeight / lineHeight;
+		// Starting texture coordinate
+		double texPos = (drawStart - pitch - WIN_HEIGHT / 2 + lineHeight / 2) * step;
+		for(int y = drawStart; y < drawEnd; y++)
 		{
-			case 1:  color = COLOR_RED;    break; //red
-			case 2:  color = COLOR_GREEN;  break; //green
-			case 3:  color = COLOR_BLUE;   break; //blue
-			case 4:  color = COLOR_WHITE;  break; //white
-			default: color = COLOR_YELLOW; break; //yellow
+			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+			int texY = (int)texPos & (texHeight - 1);
+			texPos += step;
+			int color = texture[texNum][texHeight * texY + texX];
+			//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+			if(side == 1) color = (color >> 1) & 8355711;
+			ft_put_pixel(ft_point(x, y), color);
 		}
-
-		//give x and y sides different brightness
-		if(side == 1) {color = color / 2;}
-
-		//draw the pixels of the stripe as a vertical line
-		ft_put_line(x, drawStart, drawEnd, color);
 	}
 }
 

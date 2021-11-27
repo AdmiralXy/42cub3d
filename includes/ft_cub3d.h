@@ -13,6 +13,8 @@
 # define WIN_TITLE "42cub3d - made by kricky & faggar"
 # define WIN_HEIGHT 1280
 # define WIN_WIDTH 720
+# define texWidth 64
+# define texHeight 64
 # define COLOR_RED 0xFF0000
 # define COLOR_GREEN 0x00FF00
 # define COLOR_BLUE 0x0000ff

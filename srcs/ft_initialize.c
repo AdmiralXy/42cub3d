@@ -12,7 +12,7 @@ int	ft_exit(void *data)
 
 int	ft_key_up(void *data)
 {
-	double moveSpeed = 0.25;
+	double moveSpeed = 0.45;
 
 	// move forward if no wall in front of you
 	int x_step = (int) (posX + dirX * moveSpeed);
@@ -28,7 +28,7 @@ int	ft_key_up(void *data)
 
 int	ft_key_left(void *data)
 {
-	double rotSpeed = 0.01;
+	double rotSpeed = 0.07;
 	// both camera direction and camera plane must be rotated
 	double oldDirX = dirX;
 	dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
@@ -42,7 +42,7 @@ int	ft_key_left(void *data)
 
 int	ft_key_down(void *data)
 {
-	double moveSpeed = 0.25;
+	double moveSpeed = 0.45;
 
 	int x_step = (int) (posX - dirX * moveSpeed);
 	int y_step = (int) (posY - dirY * moveSpeed);
@@ -57,7 +57,7 @@ int	ft_key_down(void *data)
 
 int	ft_key_right(void *data)
 {
-	double rotSpeed = 0.01;
+	double rotSpeed = 0.07;
 
 	//both camera direction and camera plane must be rotated
 	double oldDirX = dirX;

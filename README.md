@@ -5,3 +5,6 @@ MiniLibX for Linux requires xorg, x11 and zlib, therefore you will need to insta
 sudo apt-get install gcc make xorg libxext-dev libbsd-dev
 
 sudo apt-get update && sudo apt-get install xorg libxext-dev zlib1g-dev
+
+
+# cub3d
