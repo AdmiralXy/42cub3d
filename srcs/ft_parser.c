@@ -2,14 +2,25 @@
 
 /*
  * Документация:
- * Парсер должен заполнить: env->world_height, env->world_width - длина и ширина мира
- * Парсер должен заполнить: env->world_map - двумерный массив int'ов, сам мир
+ * Парсер должен заполнить:
+ * env->p.posX, env->p.posY - начальная позиция игрока по x и y на карте
+ * env->p.direction - начальное направление взгляда
+ * env->world_height, env->world_width - длина и ширина мира
+ * env->world_map - двумерный массив int'ов, сам мир
+ * 4 Текстуры
 */
 
-int	ft_parser()
+int	ft_parser(t_env *env)
 {
 	int	i;
 
+	env->p.pos_x = 22;
+	env->p.pos_y = 12;
+	env->p.direction = EAST;
+	env->textures[NORTH] = ft_get_texture(env, "pics/redbrick.xpm");
+	env->textures[SOUTH] = ft_get_texture(env, "pics/wood.xpm");
+	env->textures[EAST] = ft_get_texture(env, "pics/bluestone.xpm");
+	env->textures[WEST] = ft_get_texture(env, "pics/mossy.xpm");
 	env->world_width = 24;
 	env->world_height = 24;
 	env->world_map = malloc(sizeof(int *) * env->world_height);
@@ -121,20 +132,20 @@ int	ft_parser()
 	env->world_map[4][3] = 0;
 	env->world_map[4][4] = 0;
 	env->world_map[4][5] = 0;
-	env->world_map[4][6] = 2;
-	env->world_map[4][7] = 2;
-	env->world_map[4][8] = 2;
-	env->world_map[4][9] = 2;
-	env->world_map[4][10] = 2;
+	env->world_map[4][6] = 1;
+	env->world_map[4][7] = 1;
+	env->world_map[4][8] = 1;
+	env->world_map[4][9] = 1;
+	env->world_map[4][10] = 1;
 	env->world_map[4][11] = 0;
 	env->world_map[4][12] = 0;
 	env->world_map[4][13] = 0;
 	env->world_map[4][14] = 0;
-	env->world_map[4][15] = 3;
+	env->world_map[4][15] = 1;
 	env->world_map[4][16] = 0;
-	env->world_map[4][17] = 3;
+	env->world_map[4][17] = 1;
 	env->world_map[4][18] = 0;
-	env->world_map[4][19] = 3;
+	env->world_map[4][19] = 1;
 	env->world_map[4][20] = 0;
 	env->world_map[4][21] = 0;
 	env->world_map[4][22] = 0;
@@ -145,11 +156,11 @@ int	ft_parser()
 	env->world_map[5][3] = 0;
 	env->world_map[5][4] = 0;
 	env->world_map[5][5] = 0;
-	env->world_map[5][6] = 2;
+	env->world_map[5][6] = 1;
 	env->world_map[5][7] = 0;
 	env->world_map[5][8] = 0;
 	env->world_map[5][9] = 0;
-	env->world_map[5][10] = 2;
+	env->world_map[5][10] = 1;
 	env->world_map[5][11] = 0;
 	env->world_map[5][12] = 0;
 	env->world_map[5][13] = 0;
@@ -169,20 +180,20 @@ int	ft_parser()
 	env->world_map[6][3] = 0;
 	env->world_map[6][4] = 0;
 	env->world_map[6][5] = 0;
-	env->world_map[6][6] = 2;
+	env->world_map[6][6] = 1;
 	env->world_map[6][7] = 0;
 	env->world_map[6][8] = 0;
 	env->world_map[6][9] = 0;
-	env->world_map[6][10] = 2;
+	env->world_map[6][10] = 1;
 	env->world_map[6][11] = 0;
 	env->world_map[6][12] = 0;
 	env->world_map[6][13] = 0;
 	env->world_map[6][14] = 0;
-	env->world_map[6][15] = 3;
+	env->world_map[6][15] = 1;
 	env->world_map[6][16] = 0;
 	env->world_map[6][17] = 0;
 	env->world_map[6][18] = 0;
-	env->world_map[6][19] = 3;
+	env->world_map[6][19] = 1;
 	env->world_map[6][20] = 0;
 	env->world_map[6][21] = 0;
 	env->world_map[6][22] = 0;
@@ -193,11 +204,11 @@ int	ft_parser()
 	env->world_map[7][3] = 0;
 	env->world_map[7][4] = 0;
 	env->world_map[7][5] = 0;
-	env->world_map[7][6] = 2;
+	env->world_map[7][6] = 1;
 	env->world_map[7][7] = 0;
 	env->world_map[7][8] = 0;
 	env->world_map[7][9] = 0;
-	env->world_map[7][10] = 2;
+	env->world_map[7][10] = 1;
 	env->world_map[7][11] = 0;
 	env->world_map[7][12] = 0;
 	env->world_map[7][13] = 0;
@@ -217,20 +228,20 @@ int	ft_parser()
 	env->world_map[8][3] = 0;
 	env->world_map[8][4] = 0;
 	env->world_map[8][5] = 0;
-	env->world_map[8][6] = 2;
-	env->world_map[8][7] = 2;
+	env->world_map[8][6] = 1;
+	env->world_map[8][7] = 1;
 	env->world_map[8][8] = 0;
-	env->world_map[8][9] = 2;
-	env->world_map[8][10] = 2;
+	env->world_map[8][9] = 1;
+	env->world_map[8][10] = 1;
 	env->world_map[8][11] = 0;
 	env->world_map[8][12] = 0;
 	env->world_map[8][13] = 0;
 	env->world_map[8][14] = 0;
-	env->world_map[8][15] = 3;
+	env->world_map[8][15] = 1;
 	env->world_map[8][16] = 0;
-	env->world_map[8][17] = 3;
+	env->world_map[8][17] = 1;
 	env->world_map[8][18] = 0;
-	env->world_map[8][19] = 3;
+	env->world_map[8][19] = 1;
 	env->world_map[8][20] = 0;
 	env->world_map[8][21] = 0;
 	env->world_map[8][22] = 0;
@@ -404,14 +415,14 @@ int	ft_parser()
 	env->world_map[15][22] = 0;
 	env->world_map[15][23] = 1;
 	env->world_map[16][0] = 1;
-	env->world_map[16][1] = 4;
-	env->world_map[16][2] = 4;
-	env->world_map[16][3] = 4;
-	env->world_map[16][4] = 4;
-	env->world_map[16][5] = 4;
-	env->world_map[16][6] = 4;
-	env->world_map[16][7] = 4;
-	env->world_map[16][8] = 4;
+	env->world_map[16][1] = 1;
+	env->world_map[16][2] = 1;
+	env->world_map[16][3] = 1;
+	env->world_map[16][4] = 1;
+	env->world_map[16][5] = 1;
+	env->world_map[16][6] = 1;
+	env->world_map[16][7] = 1;
+	env->world_map[16][8] = 1;
 	env->world_map[16][9] = 0;
 	env->world_map[16][10] = 0;
 	env->world_map[16][11] = 0;
@@ -428,14 +439,14 @@ int	ft_parser()
 	env->world_map[16][22] = 0;
 	env->world_map[16][23] = 1;
 	env->world_map[17][0] = 1;
-	env->world_map[17][1] = 4;
+	env->world_map[17][1] = 1;
 	env->world_map[17][2] = 0;
-	env->world_map[17][3] = 4;
+	env->world_map[17][3] = 1;
 	env->world_map[17][4] = 0;
 	env->world_map[17][5] = 0;
 	env->world_map[17][6] = 0;
 	env->world_map[17][7] = 0;
-	env->world_map[17][8] = 4;
+	env->world_map[17][8] = 1;
 	env->world_map[17][9] = 0;
 	env->world_map[17][10] = 0;
 	env->world_map[17][11] = 0;
@@ -452,14 +463,14 @@ int	ft_parser()
 	env->world_map[17][22] = 0;
 	env->world_map[17][23] = 1;
 	env->world_map[18][0] = 1;
-	env->world_map[18][1] = 4;
+	env->world_map[18][1] = 1;
 	env->world_map[18][2] = 0;
 	env->world_map[18][3] = 0;
 	env->world_map[18][4] = 0;
 	env->world_map[18][5] = 0;
-	env->world_map[18][6] = 5;
+	env->world_map[18][6] = 1;
 	env->world_map[18][7] = 0;
-	env->world_map[18][8] = 4;
+	env->world_map[18][8] = 1;
 	env->world_map[18][9] = 0;
 	env->world_map[18][10] = 0;
 	env->world_map[18][11] = 0;
@@ -476,14 +487,14 @@ int	ft_parser()
 	env->world_map[18][22] = 0;
 	env->world_map[18][23] = 1;
 	env->world_map[19][0] = 1;
-	env->world_map[19][1] = 4;
+	env->world_map[19][1] = 1;
 	env->world_map[19][2] = 0;
-	env->world_map[19][3] = 4;
+	env->world_map[19][3] = 1;
 	env->world_map[19][4] = 0;
 	env->world_map[19][5] = 0;
 	env->world_map[19][6] = 0;
 	env->world_map[19][7] = 0;
-	env->world_map[19][8] = 4;
+	env->world_map[19][8] = 1;
 	env->world_map[19][9] = 0;
 	env->world_map[19][10] = 0;
 	env->world_map[19][11] = 0;
@@ -500,14 +511,14 @@ int	ft_parser()
 	env->world_map[19][22] = 0;
 	env->world_map[19][23] = 1;
 	env->world_map[20][0] = 1;
-	env->world_map[20][1] = 4;
+	env->world_map[20][1] = 1;
 	env->world_map[20][2] = 0;
-	env->world_map[20][3] = 4;
-	env->world_map[20][4] = 4;
-	env->world_map[20][5] = 4;
-	env->world_map[20][6] = 4;
-	env->world_map[20][7] = 4;
-	env->world_map[20][8] = 4;
+	env->world_map[20][3] = 1;
+	env->world_map[20][4] = 1;
+	env->world_map[20][5] = 1;
+	env->world_map[20][6] = 1;
+	env->world_map[20][7] = 1;
+	env->world_map[20][8] = 1;
 	env->world_map[20][9] = 0;
 	env->world_map[20][10] = 0;
 	env->world_map[20][11] = 0;
@@ -524,7 +535,7 @@ int	ft_parser()
 	env->world_map[20][22] = 0;
 	env->world_map[20][23] = 1;
 	env->world_map[21][0] = 1;
-	env->world_map[21][1] = 4;
+	env->world_map[21][1] = 1;
 	env->world_map[21][2] = 0;
 	env->world_map[21][3] = 0;
 	env->world_map[21][4] = 0;
@@ -548,14 +559,14 @@ int	ft_parser()
 	env->world_map[21][22] = 0;
 	env->world_map[21][23] = 1;
 	env->world_map[22][0] = 1;
-	env->world_map[22][1] = 4;
-	env->world_map[22][2] = 4;
-	env->world_map[22][3] = 4;
-	env->world_map[22][4] = 4;
-	env->world_map[22][5] = 4;
-	env->world_map[22][6] = 4;
-	env->world_map[22][7] = 4;
-	env->world_map[22][8] = 4;
+	env->world_map[22][1] = 1;
+	env->world_map[22][2] = 1;
+	env->world_map[22][3] = 1;
+	env->world_map[22][4] = 1;
+	env->world_map[22][5] = 1;
+	env->world_map[22][6] = 1;
+	env->world_map[22][7] = 1;
+	env->world_map[22][8] = 1;
 	env->world_map[22][9] = 0;
 	env->world_map[22][10] = 0;
 	env->world_map[22][11] = 0;

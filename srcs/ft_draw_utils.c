@@ -9,7 +9,7 @@ t_point ft_point(int x, int y)
 	return (point);
 }
 
-void	ft_put_pixel(t_point point, int color)
+void	ft_put_pixel(t_env *env, t_point point, int color)
 {
 	int	pixel;
 
@@ -23,20 +23,4 @@ void	ft_put_pixel(t_point point, int color)
 		env->img_data[pixel + 2] = (char)((color >> 16) & 0xFF);
 		env->img_data[pixel + 3] = (char)((color >> 24));
 	}
-}
-
-int ft_put_line(int x, int y1, int y2, int color)
-{
-	int i;
-
-	i = x;
-	while (y1 != y2)
-	{
-		ft_put_pixel(ft_point(i, y1), color);
-		if (y1 > y2)
-			y1--;
-		else
-			y1++;
-	}
-	return (1);
 }

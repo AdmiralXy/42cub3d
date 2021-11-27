@@ -1,6 +1,6 @@
 #include "ft_cub3d.h"
 
-void ft_clear_world(void)
+void ft_clear_world(t_env *env)
 {
 	int	i;
 
@@ -13,24 +13,24 @@ void ft_clear_world(void)
 	free(env->world_map);
 }
 
-void ft_clear_textures(void)
+void ft_clear_textures(t_env *env)
 {
 	int	i;
 
 	i = 0;
 	while (i < 4)
 	{
+		mlx_destroy_image(env->mlx, env->textures[i]->image);
 		free(env->textures[i]);
 		i++;
 	}
 	free(env->textures);
 }
 
-int	ft_exit(void *data)
+int	ft_exit(t_env *env)
 {
-	(void)data;
-	ft_clear_textures();
-	ft_clear_world();
+	ft_clear_textures(env);
+	ft_clear_world(env);
 	mlx_destroy_image(env->mlx, env->img_ptr);
 	mlx_clear_window(env->mlx, env->mlx_win);
 	mlx_destroy_window(env->mlx, env->mlx_win);
@@ -38,110 +38,43 @@ int	ft_exit(void *data)
 	exit(0);
 }
 
-int	ft_key_up(void *data)
-{
-	double moveSpeed = 0.45;
+void ft_drawing_test(t_env *env);
+void ft_draw(t_env *env);
 
-	// move forward if no wall in front of you
-	int x_step = (int) (posX + dirX * moveSpeed);
-	int y_step = (int) (posY + dirY * moveSpeed);
-	if (x_step <= 24 && y_step <= 24 && x_step > 0 && y_step > 0)
-	{
-		if(env->world_map[x_step][(int)(posY)] == 0) posX += dirX * moveSpeed;
-		if(env->world_map[(int)(posX)][y_step] == 0) posY += dirY * moveSpeed;
-		return (1);
-	}
-	(void)data;
-	return (0);
-}
-
-int	ft_key_left(void *data)
-{
-	double rotSpeed = 0.07;
-	// both camera direction and camera plane must be rotated
-	double oldDirX = dirX;
-	dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-	dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-	double oldPlaneX = planeX;
-	planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-	planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
-	(void)data;
-	return (1);
-}
-
-int	ft_key_down(void *data)
-{
-	double moveSpeed = 0.45;
-
-	int x_step = (int) (posX - dirX * moveSpeed);
-	int y_step = (int) (posY - dirY * moveSpeed);
-	if (x_step <= 24 && y_step <= 24 && x_step > 0 && y_step > 0)
-	{
-		if(env->world_map[x_step][(int)(posY)] == 0) posX -= dirX * moveSpeed;
-		if(env->world_map[(int)(posX)][y_step] == 0) posY -= dirY * moveSpeed;
-		return (1);
-	}
-	(void)data;
-	return (0);
-}
-
-int	ft_key_right(void *data)
-{
-	double rotSpeed = 0.07;
-
-	//both camera direction and camera plane must be rotated
-	double oldDirX = dirX;
-	dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-	dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-	double oldPlaneX = planeX;
-	planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-	planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
-	(void)data;
-	return (1);
-}
-
-void ft_drawing_test();
-void ft_draw();
-
-int	ft_key_mlx(int keycode, void *data)
+int	ft_key_mlx(int keycode, t_env *env)
 {
 	int redraw;
 
 	redraw = 0;
-	(void)data;
 	printf("Pressed: %d\n", keycode);
 	if (keycode == KEY_EXIT)
-		ft_exit(NULL);
+		ft_exit(env);
 	if (keycode == KEY_UP)
-		redraw |= ft_key_up(NULL);
+		redraw |= ft_move_forward(env);
 	if (keycode == KEY_LEFT)
-		redraw |= ft_key_left(NULL);
+		redraw |= ft_camera_left(env, env->p.rotation_speed);
 	if (keycode == KEY_DOWN)
-		redraw |= ft_key_down(NULL);
+		redraw |= ft_move_back(env);
 	if (keycode == KEY_RIGHT)
-		redraw |= ft_key_right(NULL);
+		redraw |= ft_camera_right(env, env->p.rotation_speed);
 	if (redraw)
 	{
-		ft_drawing_test();
-		ft_draw();
+		ft_drawing_test(env);
+		ft_draw(env);
 	}
 	return (0);
 }
 
-void	ft_initialize_keys(void)
+void	ft_initialize_keys(t_env *env)
 {
 	mlx_do_key_autorepeaton(env->mlx);
-	mlx_hook(env->mlx_win, 17, 17, ft_exit, NULL);
-	mlx_hook(env->mlx_win, 2, 0, ft_key_mlx, NULL);
-	mlx_hook(env->mlx_win, 3, 0, ft_key_mlx, NULL);
-	//mlx_key_hook(env->mlx_win, ft_key_mlx, NULL);
+	mlx_hook(env->mlx_win, 17, 17, ft_exit, env);
+	mlx_hook(env->mlx_win, 2, 0, ft_key_mlx, env);
+	mlx_hook(env->mlx_win, 3, 0, ft_key_mlx, env);
 }
 
-int	ft_initialize(void)
+int	ft_initialize_mlx(t_env *env)
 {
-	env = malloc(sizeof(t_env));
-	if (!env)
-		return (0);
 	env->mlx = mlx_init();
 	if (!env->mlx)
 		return (0);
@@ -159,8 +92,36 @@ int	ft_initialize(void)
 	if (!env->img_data)
 		return (0);
 	ft_bzero(env->img_data, WIN_WIDTH * WIN_HEIGHT * (env->bpp / 8));
-	ft_initialize_keys();
-	env->textures = malloc(sizeof(int *) * 4);
+	return (1);
+}
+
+int	ft_initialize_graphics(t_env *env)
+{
+	// initial speed
+	env->p.move_speed = 0.45;
+	env->p.rotation_speed = 0.07;
+	// initial direction vector
+	env->p.dir_x = -1;
+	env->p.dir_y = 0;
+	// the 2d raycaster version of camera plane
+	env->p.plane_x = 0;
+	env->p.plane_y = 0.66;
+	// rotate player
+	if (env->p.direction == NORTH)
+		ft_camera_left(env, 3.15);
+	if (env->p.direction == EAST)
+		ft_camera_right(env, 1.55);
+	return (1);
+}
+
+int	ft_initialize(t_env *env)
+{
+	if (!env)
+		return (0);
+	if (!ft_initialize_mlx(env))
+		return (0);
+	ft_initialize_keys(env);
+	env->textures = malloc(sizeof(t_texture *) * 8);
 	if (!env->textures)
 		return (0);
 	return (1);

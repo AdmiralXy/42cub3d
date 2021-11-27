@@ -12,7 +12,10 @@ MAC_MINILIBX_HEADERS = $(MINILIBX_DIRECTORY)
 SRCS = srcs/ft_cub3d.c \
 		srcs/ft_initialize.c \
 		srcs/ft_draw_utils.c \
-		srcs/ft_parser.c
+		srcs/ft_parser.c \
+		srcs/ft_textures.c \
+		srcs/ft_moving.c \
+		srcs/ft_camera.c
 
 OBJS = $(SRCS:%.c=%.o)
 

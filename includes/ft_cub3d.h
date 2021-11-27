@@ -13,14 +13,14 @@
 # define WIN_TITLE "42cub3d - made by kricky & faggar"
 # define WIN_HEIGHT 1280
 # define WIN_WIDTH 720
-# define texWidth 64
-# define texHeight 64
+# define TX_WIDTH 64
+# define TX_HEIGHT 64
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
 
-// Constants controls
+// Controls
 # if __APPLE__
 #  define KEY_EXIT 53
 #  define KEY_UP 13
@@ -43,36 +43,64 @@ typedef struct s_point
 	int		y;
 }	t_point;
 
+typedef struct s_player
+{
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	move_speed;
+	double	rotation_speed;
+	int		direction;
+}	t_player;
+
+typedef struct s_texture
+{
+	int	*texture;
+	int	*image;
+	int	bpp;
+	int	size_line;
+	int	endian;
+	int	width;
+	int	height;
+}	t_texture;
+
 typedef struct s_env
 {
-	void	*mlx;
-	void	*mlx_win;
-	int		bpp;
-	int		size_line;
-	int		endian;
-	void	*img_ptr;
-	char	*img_data;
-	int		**world_map;
-	int		world_width;
-	int		world_height;
-	int		**textures;
+	void		*mlx;
+	void		*mlx_win;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	void		*img_ptr;
+	char		*img_data;
+	int			**world_map;
+	int			world_width;
+	int			world_height;
+	t_texture	**textures;
+	t_player	p;
 }	t_env;
 
-// Globals
-t_env *env;
-double posX, posY;
-double dirX, dirY;
-double planeX, planeY;
-
 // Initialization functions
-int		ft_initialize(void);
+int			ft_initialize(t_env *env);
+int			ft_initialize_graphics(t_env *env);
 
 // Parser functions
-int		ft_parser();
+int			ft_parser(t_env *env);
 
 // Drawing utilities functions
-t_point	ft_point(int x, int y);
-void	ft_put_pixel(t_point point, int color);
-int		ft_put_line(int x, int y1, int y2, int color);
+t_point		ft_point(int x, int y);
+void		ft_put_pixel(t_env *env, t_point point, int color);
+
+// Textures functions
+t_texture	*ft_get_texture(t_env *env, char *path);
+
+// Moving functions
+int			ft_move_forward(t_env *env);
+int			ft_move_back(t_env *env);
+int			ft_camera_left(t_env *env, double angle);
+int			ft_camera_right(t_env *env, double angle);
 
 #endif
