@@ -21,6 +21,8 @@ int	ft_parser(t_env *env)
 	env->textures[SOUTH] = ft_get_texture(env, "pics/wood.xpm");
 	env->textures[EAST] = ft_get_texture(env, "pics/bluestone.xpm");
 	env->textures[WEST] = ft_get_texture(env, "pics/mossy.xpm");
+	env->floor_color = ft_rgb_to_hex(200, 109, 30);
+	env->ceil_color = ft_rgb_to_hex(30, 115, 200);
 	env->world_width = 24;
 	env->world_height = 24;
 	env->world_map = malloc(sizeof(int *) * env->world_height);
