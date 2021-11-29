@@ -19,6 +19,10 @@
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
+# define MP_WALLS 0x000000
+# define MP_SPACE 0xffffff
+# define MP_PLAYER 0x00ff48
+# define MP_OFFSET 45
 
 // Controls
 # if __APPLE__
@@ -27,8 +31,8 @@
 #  define KEY_DOWN 1
 #  define KEY_LEFT 0
 #  define KEY_RIGHT 2
-#  define ARROW_LEFT 9999
-#  define ARROW_RIGHT 9999
+#  define ARROW_LEFT 123
+#  define ARROW_RIGHT 124
 # else
 #  define KEY_EXIT 65307
 #  define KEY_UP 119
@@ -71,23 +75,13 @@ typedef struct s_texture
 	int	height;
 }	t_texture;
 
-typedef struct s_env
+typedef struct s_minimap
 {
-	void		*mlx;
-	void		*mlx_win;
-	int			bpp;
-	int			size_line;
-	int			endian;
-	void		*img_ptr;
-	char		*img_data;
-	int			**world_map;
-	int			world_width;
-	int			world_height;
-	int			floor_color;
-	int			ceil_color;
-	t_texture	**textures;
-	t_player	p;
-}	t_env;
+	int	**map;
+	int	height;
+	int	width;
+	int scale;
+}	t_minimap;
 
 typedef struct s_raycasting
 {
@@ -116,6 +110,25 @@ typedef struct s_raycasting
 	double	tex_pos;
 }	t_raycasting;
 
+typedef struct s_env
+{
+	void		*mlx;
+	void		*mlx_win;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	void		*img_ptr;
+	char		*img_data;
+	int			**world_map;
+	int			world_width;
+	int			world_height;
+	int			floor_color;
+	int			ceil_color;
+	t_texture	**textures;
+	t_player	p;
+	t_minimap	*minimap;
+}	t_env;
+
 // Initialization functions
 int			ft_initialize(t_env *env);
 int			ft_initialize_graphics(t_env *env);
@@ -128,10 +141,17 @@ int			ft_rgb_to_hex(int r, int g, int b);
 t_texture	*ft_get_texture(t_env *env, char *path);
 t_point		ft_point(int x, int y);
 void		ft_put_pixel(t_env *env, t_point point, int color);
+void		ft_put_pixel_oft(t_env *env, t_point point, int color, int offset);
 
 // Raycasting functions
 void		ft_raycasting(t_env *env);
 void		ft_init_rays(t_env *env, t_raycasting *rcs, int x);
+
+// Minimap functions
+void		ft_minimap(t_env *env);
+void		ft_clear_minimap(t_minimap *minimap);
+t_minimap	*ft_minimap_compress(t_minimap *old_minimap);
+t_minimap	*ft_minimap_stretch(t_minimap *old_minimap);
 
 // Exit functions
 int			ft_exit(t_env *env);

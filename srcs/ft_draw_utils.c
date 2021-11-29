@@ -40,3 +40,21 @@ void	ft_put_pixel(t_env *env, t_point point, int color)
 		env->img_data[pixel + 3] = (char)((color >> 24));
 	}
 }
+
+void	ft_put_pixel_oft(t_env *env, t_point point, int color, int offset)
+{
+	int	pixel;
+
+	point.x += offset;
+	point.y += offset;
+	pixel = (point.y * WIN_HEIGHT * 4) + (point.x * 4);
+	color = mlx_get_color_value(env->mlx, color);
+	if (point.x > 0 && pixel > 0
+		&& pixel < WIN_WIDTH * WIN_HEIGHT * (env->bpp / 8))
+	{
+		env->img_data[pixel + 0] = (char)((color) & 0xFF);
+		env->img_data[pixel + 1] = (char)((color >> 8) & 0xFF);
+		env->img_data[pixel + 2] = (char)((color >> 16) & 0xFF);
+		env->img_data[pixel + 3] = (char)((color >> 24));
+	}
+}

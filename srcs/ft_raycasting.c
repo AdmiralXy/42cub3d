@@ -98,5 +98,6 @@ void	ft_raycasting(t_env *env)
 		ft_raycasting_texturing(env, &rcs, x);
 		x++;
 	}
+	ft_minimap(env);
 	mlx_put_image_to_window(env->mlx, env->mlx_win, env->img_ptr, 0, 0);
 }

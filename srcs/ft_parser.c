@@ -18,7 +18,7 @@ int	ft_parser(t_env *env)
 
 	env->p.pos_x = 22;
 	env->p.pos_y = 12;
-	env->p.initial_direction = WEST;
+	env->p.initial_direction = SOUTH;
 	env->textures[NORTH] = ft_get_texture(env, "pics/redbrick.xpm");
 	env->textures[SOUTH] = ft_get_texture(env, "pics/wood.xpm");
 	env->textures[EAST] = ft_get_texture(env, "pics/bluestone.xpm");

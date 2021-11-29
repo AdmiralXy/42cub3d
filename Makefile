@@ -17,7 +17,9 @@ SRCS = srcs/ft_main.c \
 		srcs/ft_camera.c \
 		srcs/ft_exit.c \
 		srcs/ft_raycasting_rays.c \
-		srcs/ft_raycasting.c
+		srcs/ft_raycasting.c \
+		srcs/ft_minimap.c \
+		srcs/ft_minimap_utils.c
 
 OBJS = $(SRCS:%.c=%.o)
 
