@@ -21,10 +21,7 @@ int	ft_key_mlx(int keycode, t_env *env)
 	if (keycode == ARROW_RIGHT)
 		redraw |= ft_camera_right(env, env->p.rotation_speed);
 	if (redraw)
-	{
-		ft_drawing_test(env);
-		ft_draw(env);
-	}
+		ft_raycasting(env);
 	return (0);
 }
 

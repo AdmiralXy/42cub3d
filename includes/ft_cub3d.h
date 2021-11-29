@@ -89,30 +89,32 @@ typedef struct s_env
 	t_player	p;
 }	t_env;
 
-typedef struct s_rays
+typedef struct s_raycasting
 {
-	double cameraX;
-	double rayDirX;
-	double rayDirY;
-	int mapX;
-	int mapY;
-	double sideDistX;
-	double sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-	double perpWallDist;
-	int stepX;
-	int stepY;
-	int hit;
-	int side;
-	int lineHeight;
-	int pitch;
-	double wallX;
-	int texX;
-	double step;
-	double texPos;
-	int texY;
-}	t_rays;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	int		pitch;
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
+	double	step;
+	double	tex_pos;
+}	t_raycasting;
 
 // Initialization functions
 int			ft_initialize(t_env *env);
@@ -123,14 +125,16 @@ int			ft_parser(t_env *env);
 
 // Drawing utilities functions
 int			ft_rgb_to_hex(int r, int g, int b);
+t_texture	*ft_get_texture(t_env *env, char *path);
 t_point		ft_point(int x, int y);
 void		ft_put_pixel(t_env *env, t_point point, int color);
 
-// Textures functions
-t_texture	*ft_get_texture(t_env *env, char *path);
+// Raycasting functions
+void		ft_raycasting(t_env *env);
+void		ft_init_rays(t_env *env, t_raycasting *rcs, int x);
 
 // Exit functions
-int	ft_exit(t_env *env);
+int			ft_exit(t_env *env);
 
 // Moving functions
 int			ft_move_forward(t_env *env);
@@ -139,9 +143,5 @@ int			ft_move_left(t_env *env);
 int			ft_move_right(t_env *env);
 int			ft_camera_left(t_env *env, double angle);
 int			ft_camera_right(t_env *env, double angle);
-
-// Temp
-void		ft_drawing_test(t_env *env);
-void		ft_draw(t_env *env);
 
 #endif
