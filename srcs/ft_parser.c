@@ -1,8 +1,7 @@
 #include "ft_cub3d.h"
 
 /*
- * Документация:
- * Парсер должен заполнить:
+ * Парсер заполняет:
  * env->p.posX, env->p.posY - начальная позиция игрока по x и y на карте
  * env->p.initial_direction - начальное направление взгляда
  * 4 Текстуры - NORTH, SOUTH, EAST, WEST
@@ -10,6 +9,7 @@
  * env->world_height, env->world_width - длина и ширина мира
  * env->world_map - двумерный массив int'ов, сам мир
  * Примечение: в двумерном массиве мира, N,S,E,W (игрок) заменяется цифрой 0
+ * Функция возвращает int(1) если все прошло успешно, int(0) в противном случае
 */
 
 int	ft_parser(t_env *env)
@@ -610,19 +610,5 @@ int	ft_parser(t_env *env)
 	env->world_map[23][21] = 1;
 	env->world_map[23][22] = 1;
 	env->world_map[23][23] = 1;
-
-	int k = 0, j;
-
-	while (k < 24)
-	{
-		j = 0;
-		while (j < 24)
-		{
-			printf("%d ", env->world_map[k][j]);
-			j++;
-		}
-		printf("\n");
-		k++;
-	}
 	return (1);
 }
