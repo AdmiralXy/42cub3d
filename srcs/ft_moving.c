@@ -1,6 +1,5 @@
 #include "ft_cub3d.h"
 
-// TODO Collision for strafe left/right
 // TODO Collision for world width/height
 
 int	ft_move_forward(t_env *env)
@@ -82,8 +81,8 @@ int	ft_move_right(t_env *env)
 	double	old_pos_x;
 	double	old_pos_y;
 
-	x_step = (int)(env->p.pos_x - env->p.plane_x * env->p.move_speed);
-	y_step = (int)(env->p.pos_y - env->p.plane_y * env->p.move_speed);
+	x_step = (int)(env->p.pos_x + env->p.plane_x * env->p.move_speed);
+	y_step = (int)(env->p.pos_y + env->p.plane_y * env->p.move_speed);
 	old_pos_x = env->p.pos_x;
 	old_pos_y = env->p.pos_y;
 	if (x_step <= 24 && y_step <= 24 && x_step > 0 && y_step > 0)
