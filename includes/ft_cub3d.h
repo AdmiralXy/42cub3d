@@ -10,7 +10,7 @@
 # include <stdio.h>
 
 // Constants
-# define WIN_TITLE "42cub3d - made by kricky & faggar"
+# define WIN_TITLE "42cub3d"
 # define WIN_HEIGHT 1280
 # define WIN_WIDTH 720
 # define TX_WIDTH 64
