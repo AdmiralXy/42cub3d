@@ -27,12 +27,16 @@
 #  define KEY_DOWN 1
 #  define KEY_LEFT 0
 #  define KEY_RIGHT 2
+#  define ARROW_LEFT 9999
+#  define ARROW_RIGHT 9999
 # else
 #  define KEY_EXIT 65307
 #  define KEY_UP 119
 #  define KEY_DOWN 115
 #  define KEY_LEFT 97
 #  define KEY_RIGHT 100
+#  define ARROW_LEFT 65361
+#  define ARROW_RIGHT 65363
 
 # endif
 
@@ -103,7 +107,13 @@ t_texture	*ft_get_texture(t_env *env, char *path);
 // Moving functions
 int			ft_move_forward(t_env *env);
 int			ft_move_back(t_env *env);
+int			ft_move_left(t_env *env);
+int			ft_move_right(t_env *env);
 int			ft_camera_left(t_env *env, double angle);
 int			ft_camera_right(t_env *env, double angle);
+
+// Temp
+void		ft_drawing_test(t_env *env);
+void		ft_draw(t_env *env);
 
 #endif

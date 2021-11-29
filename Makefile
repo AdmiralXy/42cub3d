@@ -66,7 +66,7 @@ re: clean all
 
 norminette:
 	norminette $(SRCS) $(INCLUDES)
-	norminette libft/*.c libft/*.h
+	norminette libft
 	@echo "\033[0;35mAll files in accordance with norminette!\033[0m"
 
 bonus: $(NAME)

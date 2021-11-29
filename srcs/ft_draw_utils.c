@@ -2,10 +2,10 @@
 
 int	ft_rgb_to_hex(int r, int g, int b)
 {
-	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 }
 
-t_point ft_point(int x, int y)
+t_point	ft_point(int x, int y)
 {
 	t_point	point;
 
