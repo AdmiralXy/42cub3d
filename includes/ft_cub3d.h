@@ -57,7 +57,7 @@ typedef struct s_player
 	double	plane_y;
 	double	move_speed;
 	double	rotation_speed;
-	int		direction;
+	int		initial_direction;
 }	t_player;
 
 typedef struct s_texture
@@ -89,6 +89,31 @@ typedef struct s_env
 	t_player	p;
 }	t_env;
 
+typedef struct s_rays
+{
+	double cameraX;
+	double rayDirX;
+	double rayDirY;
+	int mapX;
+	int mapY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+	double perpWallDist;
+	int stepX;
+	int stepY;
+	int hit;
+	int side;
+	int lineHeight;
+	int pitch;
+	double wallX;
+	int texX;
+	double step;
+	double texPos;
+	int texY;
+}	t_rays;
+
 // Initialization functions
 int			ft_initialize(t_env *env);
 int			ft_initialize_graphics(t_env *env);
@@ -103,6 +128,9 @@ void		ft_put_pixel(t_env *env, t_point point, int color);
 
 // Textures functions
 t_texture	*ft_get_texture(t_env *env, char *path);
+
+// Exit functions
+int	ft_exit(t_env *env);
 
 // Moving functions
 int			ft_move_forward(t_env *env);

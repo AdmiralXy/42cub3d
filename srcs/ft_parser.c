@@ -4,10 +4,12 @@
  * Документация:
  * Парсер должен заполнить:
  * env->p.posX, env->p.posY - начальная позиция игрока по x и y на карте
- * env->p.direction - начальное направление взгляда
+ * env->p.initial_direction - начальное направление взгляда
+ * 4 Текстуры - NORTH, SOUTH, EAST, WEST
+ * env->floor_color, env->ceil_color - цвет потолка и пола
  * env->world_height, env->world_width - длина и ширина мира
  * env->world_map - двумерный массив int'ов, сам мир
- * 4 Текстуры
+ * Примечение: в двумерном массиве мира, N,S,E,W (игрок) заменяется цифрой 0
 */
 
 int	ft_parser(t_env *env)
@@ -16,13 +18,13 @@ int	ft_parser(t_env *env)
 
 	env->p.pos_x = 22;
 	env->p.pos_y = 12;
-	env->p.direction = WEST;
+	env->p.initial_direction = WEST;
 	env->textures[NORTH] = ft_get_texture(env, "pics/redbrick.xpm");
 	env->textures[SOUTH] = ft_get_texture(env, "pics/wood.xpm");
 	env->textures[EAST] = ft_get_texture(env, "pics/bluestone.xpm");
 	env->textures[WEST] = ft_get_texture(env, "pics/mossy.xpm");
-	env->floor_color = ft_rgb_to_hex(200, 109, 30);
-	env->ceil_color = ft_rgb_to_hex(30, 115, 200);
+	env->floor_color = ft_rgb_to_hex(96, 99, 99);
+	env->ceil_color = ft_rgb_to_hex(183, 241, 247);
 	env->world_width = 24;
 	env->world_height = 24;
 	env->world_map = malloc(sizeof(int *) * env->world_height);
@@ -608,5 +610,19 @@ int	ft_parser(t_env *env)
 	env->world_map[23][21] = 1;
 	env->world_map[23][22] = 1;
 	env->world_map[23][23] = 1;
+
+	int k = 0, j;
+
+	while (k < 24)
+	{
+		j = 0;
+		while (j < 24)
+		{
+			printf("%d ", env->world_map[k][j]);
+			j++;
+		}
+		printf("\n");
+		k++;
+	}
 	return (1);
 }
