@@ -68,7 +68,10 @@ void	ft_minimap_to_screen(t_env *env)
 
 void	ft_minimap(t_env *env)
 {
+	int	max_steps;
+
 	env->minimap = ft_minimap_init(env);
+	max_steps = 100;
 	while (env->minimap->width < 100 || env->minimap->width > 500)
 	{
 		if (env->minimap->width < 100)
@@ -81,6 +84,9 @@ void	ft_minimap(t_env *env)
 			env->minimap = ft_minimap_compress(env->minimap);
 			env->minimap->scale -= 4;
 		}
+		if (max_steps == 0)
+			break ;
+		max_steps--;
 	}
 	ft_minimap_to_screen(env);
 	ft_clear_minimap(env->minimap);
