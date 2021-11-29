@@ -72,9 +72,9 @@ void	ft_minimap(t_env *env)
 
 	env->minimap = ft_minimap_init(env);
 	max_steps = 100;
-	while (env->minimap->width < 100 || env->minimap->width > 500)
+	while (env->minimap->width < 180 || env->minimap->width > 500)
 	{
-		if (env->minimap->width < 100)
+		if (env->minimap->width < 200)
 		{
 			env->minimap = ft_minimap_stretch(env->minimap);
 			env->minimap->scale += 4;
