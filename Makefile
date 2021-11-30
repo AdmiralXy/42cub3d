@@ -13,9 +13,13 @@ SRCS = srcs/ft_main.c \
 		srcs/ft_initialize.c \
 		srcs/ft_draw_utils.c \
 		srcs/ft_parser.c \
-		srcs/ft_textures.c \
 		srcs/ft_moving.c \
-		srcs/ft_camera.c
+		srcs/ft_camera.c \
+		srcs/ft_exit.c \
+		srcs/ft_raycasting_rays.c \
+		srcs/ft_raycasting.c \
+		srcs/ft_minimap.c \
+		srcs/ft_minimap_utils.c
 
 OBJS = $(SRCS:%.c=%.o)
 
@@ -66,7 +70,7 @@ re: clean all
 
 norminette:
 	norminette $(SRCS) $(INCLUDES)
-	norminette libft/*.c libft/*.h
+	norminette libft
 	@echo "\033[0;35mAll files in accordance with norminette!\033[0m"
 
 bonus: $(NAME)

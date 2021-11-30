@@ -1,49 +1,8 @@
 #include "ft_cub3d.h"
 
-void ft_clear_world(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	while (i < env->world_height)
-	{
-		free(env->world_map[i]);
-		i++;
-	}
-	free(env->world_map);
-}
-
-void ft_clear_textures(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		mlx_destroy_image(env->mlx, env->textures[i]->image);
-		free(env->textures[i]);
-		i++;
-	}
-	free(env->textures);
-}
-
-int	ft_exit(t_env *env)
-{
-	ft_clear_textures(env);
-	ft_clear_world(env);
-	mlx_destroy_image(env->mlx, env->img_ptr);
-	mlx_clear_window(env->mlx, env->mlx_win);
-	mlx_destroy_window(env->mlx, env->mlx_win);
-	free(env);
-	exit(0);
-}
-
-void ft_drawing_test(t_env *env);
-void ft_draw(t_env *env);
-
 int	ft_key_mlx(int keycode, t_env *env)
 {
-	int redraw;
+	int	redraw;
 
 	redraw = 0;
 	printf("Pressed: %d\n", keycode);
@@ -52,16 +11,17 @@ int	ft_key_mlx(int keycode, t_env *env)
 	if (keycode == KEY_UP)
 		redraw |= ft_move_forward(env);
 	if (keycode == KEY_LEFT)
-		redraw |= ft_camera_left(env, env->p.rotation_speed);
+		redraw |= ft_move_left(env);
 	if (keycode == KEY_DOWN)
 		redraw |= ft_move_back(env);
 	if (keycode == KEY_RIGHT)
+		redraw |= ft_move_right(env);
+	if (keycode == ARROW_LEFT)
+		redraw |= ft_camera_left(env, env->p.rotation_speed);
+	if (keycode == ARROW_RIGHT)
 		redraw |= ft_camera_right(env, env->p.rotation_speed);
 	if (redraw)
-	{
-		ft_drawing_test(env);
-		ft_draw(env);
-	}
+		ft_raycasting(env);
 	return (0);
 }
 
@@ -97,21 +57,17 @@ int	ft_initialize_mlx(t_env *env)
 
 int	ft_initialize_graphics(t_env *env)
 {
-	// initial speed
 	env->p.move_speed = 0.45;
 	env->p.rotation_speed = 0.07;
-	// initial direction vector
 	env->p.dir_x = -1;
 	env->p.dir_y = 0;
-	// the 2d raycaster version of camera plane
 	env->p.plane_x = 0;
 	env->p.plane_y = 0.66;
-	// rotate player
-	if (env->p.direction == NORTH)
+	if (env->p.initial_direction == NORTH)
 		ft_camera_left(env, 3.15);
-	if (env->p.direction == EAST)
+	if (env->p.initial_direction == EAST)
 		ft_camera_right(env, 1.55);
-	if (env->p.direction == WEST)
+	if (env->p.initial_direction == WEST)
 		ft_camera_right(env, 4.75);
 	return (1);
 }

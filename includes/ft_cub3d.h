@@ -10,7 +10,7 @@
 # include <stdio.h>
 
 // Constants
-# define WIN_TITLE "42cub3d - made by kricky & faggar"
+# define WIN_TITLE "42cub3d"
 # define WIN_HEIGHT 1280
 # define WIN_WIDTH 720
 # define TX_WIDTH 64
@@ -19,6 +19,10 @@
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
+# define MP_WALLS 0x000000
+# define MP_SPACE 0xffffff
+# define MP_PLAYER 0x00ff48
+# define MP_OFFSET 45
 
 // Controls
 # if __APPLE__
@@ -27,12 +31,16 @@
 #  define KEY_DOWN 1
 #  define KEY_LEFT 0
 #  define KEY_RIGHT 2
+#  define ARROW_LEFT 123
+#  define ARROW_RIGHT 124
 # else
 #  define KEY_EXIT 65307
 #  define KEY_UP 119
 #  define KEY_DOWN 115
 #  define KEY_LEFT 97
 #  define KEY_RIGHT 100
+#  define ARROW_LEFT 65361
+#  define ARROW_RIGHT 65363
 
 # endif
 
@@ -53,7 +61,7 @@ typedef struct s_player
 	double	plane_y;
 	double	move_speed;
 	double	rotation_speed;
-	int		direction;
+	int		initial_direction;
 }	t_player;
 
 typedef struct s_texture
@@ -66,6 +74,41 @@ typedef struct s_texture
 	int	width;
 	int	height;
 }	t_texture;
+
+typedef struct s_minimap
+{
+	int	**map;
+	int	height;
+	int	width;
+	int scale;
+}	t_minimap;
+
+typedef struct s_raycasting
+{
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	int		pitch;
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
+	double	step;
+	double	tex_pos;
+}	t_raycasting;
 
 typedef struct s_env
 {
@@ -83,6 +126,7 @@ typedef struct s_env
 	int			ceil_color;
 	t_texture	**textures;
 	t_player	p;
+	t_minimap	*minimap;
 }	t_env;
 
 // Initialization functions
@@ -94,15 +138,29 @@ int			ft_parser(t_env *env);
 
 // Drawing utilities functions
 int			ft_rgb_to_hex(int r, int g, int b);
+t_texture	*ft_get_texture(t_env *env, char *path);
 t_point		ft_point(int x, int y);
 void		ft_put_pixel(t_env *env, t_point point, int color);
+void		ft_put_pixel_oft(t_env *env, t_point point, int color, int offset);
 
-// Textures functions
-t_texture	*ft_get_texture(t_env *env, char *path);
+// Raycasting functions
+void		ft_raycasting(t_env *env);
+void		ft_init_rays(t_env *env, t_raycasting *rcs, int x);
+
+// Minimap functions
+void		ft_minimap(t_env *env);
+void		ft_clear_minimap(t_minimap *minimap);
+t_minimap	*ft_minimap_compress(t_minimap *old_minimap);
+t_minimap	*ft_minimap_stretch(t_minimap *old_minimap);
+
+// Exit functions
+int			ft_exit(t_env *env);
 
 // Moving functions
 int			ft_move_forward(t_env *env);
 int			ft_move_back(t_env *env);
+int			ft_move_left(t_env *env);
+int			ft_move_right(t_env *env);
 int			ft_camera_left(t_env *env, double angle);
 int			ft_camera_right(t_env *env, double angle);
 
