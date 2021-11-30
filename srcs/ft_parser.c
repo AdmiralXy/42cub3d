@@ -10,6 +10,175 @@
  * 4 Текстуры
 */
 
+int	check_char(char c)
+{
+	if (c != '0' && c != '1' && c != 'N' 
+	&& c != 'W' && c != 'S' && c != 'E' && c != ' ')
+		return(-1);
+	return(1);
+}
+
+int	get_width(char *one_line)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (one_line[cnt] != '\0')
+	{
+		if (check_char(one_line[cnt] == -1))
+		{
+			printf("Bad map\n");
+			exit(1);
+		}
+		cnt++;
+	}
+	return (cnt);
+}
+
+int	*fill_data(int *int_str, char *line)
+{
+	int		cnt;
+
+	cnt = 0;
+	while (line[cnt] != '\0')
+	{
+		if (line[cnt] == ' ')
+			int_str[cnt] = 0;
+		else if (line[cnt] == '1')
+			int_str[cnt] = 1;
+		else if (line[cnt] == '0')
+			int_str[cnt] = 0;
+		cnt++;
+	}
+	return (int_str);
+}
+
+int	textures(char *line, t_env *env)
+{
+	int cnt;
+
+	cnt = 0;
+	if (ft_strncmp("NO", line, 2) == 0)
+	{
+		while (line[cnt] != '.')
+		{
+			env->textures[NORTH] = line + cnt;
+		}
+	}
+	else if (ft_strncmp("SO", line, 2) == 0)
+	{
+		while (line[cnt] != '.')
+		{
+			env->textures[SOUTH] = line + cnt;
+		}
+	}
+	else if (ft_strncmp("WE", line, 2) == 0)
+	{
+		while (line[cnt] != '.')
+		{
+			env->textures[WEST] = line + cnt;
+		}
+	}
+	else if (ft_strncmp("EA", line, 2) == 0)
+	{
+		while (line[cnt] != '.')
+		{
+			env->textures[EAST] = line + cnt;
+		}
+	}
+}
+
+int	ft_get_floor_ceiling(char *line, int flag, t_env *env)
+{
+	int		cnt;
+	char	**splt;
+
+	cnt = 0;
+	while (line[cnt] <= '0' && line[cnt] >= '9')
+		cnt++;
+	splt = ft_split(line + cnt, ',');
+	if (split[0] == NULL || splt[2] == NULL 
+		|| split[1] == NULL)
+	{
+		printf("Error\n");
+		exit (-1);
+	}
+	else
+	{
+		if (flag == 0)
+			env->floor_color = ft_rgb_to_hex(ft_atoi(splt[0],
+			ft_atoi(splt[1], ft_atoi(splt[2]))));
+		if (flag == 1)
+			env->ceil_color = ft_rgb_to_hex(ft_atoi(splt[0],
+			ft_atoi(splt[1], ft_atoi(splt[2]))))
+	}
+}
+
+int	fill_textures(int fd, t_env *env)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	while (i < 8)
+	{
+		get_next_line(fd, &line);
+		if(i < 4)
+		{
+			textures(line, env);
+		}
+		else if (i == 4)
+		{
+			get_next_line(fd, &line);
+			ft_get_floor_ceiling(line, 0, env);
+			get_next_line(fd, &line);
+			ft_get_floor_ceiling(line, 0, env);
+			// get_next_line(fd, &line);
+			break;
+		}
+
+	}
+}
+void	skip_str(int fd, char *line)
+{
+	int	i;
+
+	i = 0;
+	while (i < 8)
+	{
+		get_next_line(fd, line);
+		i++;
+	}
+}
+int	open_map(t_env *env, char **av)
+{
+	int 	fd;
+	int		size;
+	char	*line;
+	int		height;
+
+	height = 0;
+	fd = open(av[1], O_RDONLY, 0);
+	if (fd == -1)
+		exit (1);
+	size = 0;
+	fill_textures(fd, env);
+	while (get_next_line(fd, &line) && height < 8)
+	{
+		height++;
+	}
+	close(fd);
+	env->world_map = malloc(sizeof(int *) * height);
+	fd = open(av[1], O_RDONLY, 0);
+	skip_str(fd, line);
+	while (get_next_line(fd, &line))
+	{
+		env->world_map[size] = malloc(sizeof(int) * get_width(line));
+		env->world_map[size] = fill_data(env->world_map[size], line);
+	}
+	return (1);
+}
+
 int	ft_parser(t_env *env)
 {
 	int	i;
