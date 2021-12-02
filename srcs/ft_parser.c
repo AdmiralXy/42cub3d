@@ -1,15 +1,13 @@
 #include "ft_cub3d.h"
 
 /*
- * Парсер заполняет:
+ * Документация:
+ * Парсер должен заполнить:
  * env->p.posX, env->p.posY - начальная позиция игрока по x и y на карте
- * env->p.initial_direction - начальное направление взгляда
- * 4 Текстуры - NORTH, SOUTH, EAST, WEST
- * env->floor_color, env->ceil_color - цвет потолка и пола
+ * env->p.direction - начальное направление взгляда
  * env->world_height, env->world_width - длина и ширина мира
  * env->world_map - двумерный массив int'ов, сам мир
- * Примечение: в двумерном массиве мира, N,S,E,W (игрок) заменяется цифрой 0
- * Функция возвращает int(1) если все прошло успешно, int(0) в противном случае
+ * 4 Текстуры
 */
 
 int	check_char(char c)
@@ -64,30 +62,31 @@ int	textures(char *line, t_env *env)
 	{
 		while (line[cnt] != '.')
 		{
-			env->textures[NORTH] = line + cnt;
+			env->textures[NORTH] = ft_get_texture(env, line + cnt);
 		}
 	}
 	else if (ft_strncmp("SO", line, 2) == 0)
 	{
 		while (line[cnt] != '.')
 		{
-			env->textures[SOUTH] = line + cnt;
+			env->textures[SOUTH] = ft_get_texture(env, line + cnt);
 		}
 	}
 	else if (ft_strncmp("WE", line, 2) == 0)
 	{
 		while (line[cnt] != '.')
 		{
-			env->textures[WEST] = line + cnt;
+			env->textures[WEST] = ft_get_texture(env, line + cnt);
 		}
 	}
 	else if (ft_strncmp("EA", line, 2) == 0)
 	{
 		while (line[cnt] != '.')
 		{
-			env->textures[EAST] = line + cnt;
+			env->textures[EAST] = ft_get_texture(env, line + cnt);
 		}
 	}
+	return (0);
 }
 
 int	ft_get_floor_ceiling(char *line, int flag, t_env *env)
@@ -99,8 +98,8 @@ int	ft_get_floor_ceiling(char *line, int flag, t_env *env)
 	while (line[cnt] <= '0' && line[cnt] >= '9')
 		cnt++;
 	splt = ft_split(line + cnt, ',');
-	if (split[0] == NULL || splt[2] == NULL 
-		|| split[1] == NULL)
+	if (splt[0] == NULL || splt[2] == NULL 
+		|| splt[1] == NULL)
 	{
 		printf("Error\n");
 		exit (-1);
@@ -108,12 +107,13 @@ int	ft_get_floor_ceiling(char *line, int flag, t_env *env)
 	else
 	{
 		if (flag == 0)
-			env->floor_color = ft_rgb_to_hex(ft_atoi(splt[0],
-			ft_atoi(splt[1], ft_atoi(splt[2]))));
+			env->floor_color = ft_rgb_to_hex(ft_atoi(splt[0]),
+			ft_atoi(splt[1]), ft_atoi(splt[2]));
 		if (flag == 1)
-			env->ceil_color = ft_rgb_to_hex(ft_atoi(splt[0],
-			ft_atoi(splt[1], ft_atoi(splt[2]))))
+			env->ceil_color = ft_rgb_to_hex(ft_atoi(splt[0]),
+			ft_atoi(splt[1]), ft_atoi(splt[2]));
 	}
+	return (0);
 }
 
 int	fill_textures(int fd, t_env *env)
@@ -140,6 +140,7 @@ int	fill_textures(int fd, t_env *env)
 		}
 
 	}
+	return 1;
 }
 void	skip_str(int fd, char *line)
 {
@@ -148,11 +149,11 @@ void	skip_str(int fd, char *line)
 	i = 0;
 	while (i < 8)
 	{
-		get_next_line(fd, line);
+		get_next_line(fd, &line);
 		i++;
 	}
 }
-int	open_map(t_env *env, char **av)
+int	open_map(t_env *env)
 {
 	int 	fd;
 	int		size;
@@ -160,7 +161,7 @@ int	open_map(t_env *env, char **av)
 	int		height;
 
 	height = 0;
-	fd = open(av[1], O_RDONLY, 0);
+	fd = open("map.cub", O_RDONLY, 0);
 	if (fd == -1)
 		exit (1);
 	size = 0;
@@ -171,7 +172,7 @@ int	open_map(t_env *env, char **av)
 	}
 	close(fd);
 	env->world_map = malloc(sizeof(int *) * height);
-	fd = open(av[1], O_RDONLY, 0);
+	fd = open("map.cub", O_RDONLY, 0);
 	skip_str(fd, line);
 	while (get_next_line(fd, &line))
 	{
@@ -184,16 +185,24 @@ int	open_map(t_env *env, char **av)
 int	ft_parser(t_env *env)
 {
 	int	i;
+	int k = 1;
+	if (k == 1)
+	{
+		open_map(env);
+	}
+	else
+	{
 
+	
 	env->p.pos_x = 22;
 	env->p.pos_y = 12;
-	env->p.initial_direction = SOUTH;
+	//env->p.direction = WEST;
 	env->textures[NORTH] = ft_get_texture(env, "pics/redbrick.xpm");
 	env->textures[SOUTH] = ft_get_texture(env, "pics/wood.xpm");
 	env->textures[EAST] = ft_get_texture(env, "pics/bluestone.xpm");
 	env->textures[WEST] = ft_get_texture(env, "pics/mossy.xpm");
-	env->floor_color = ft_rgb_to_hex(96, 99, 99);
-	env->ceil_color = ft_rgb_to_hex(183, 241, 247);
+	env->floor_color = ft_rgb_to_hex(200, 109, 30);
+	env->ceil_color = ft_rgb_to_hex(30, 115, 200);
 	env->world_width = 24;
 	env->world_height = 24;
 	env->world_map = malloc(sizeof(int *) * env->world_height);
@@ -779,5 +788,6 @@ int	ft_parser(t_env *env)
 	env->world_map[23][21] = 1;
 	env->world_map[23][22] = 1;
 	env->world_map[23][23] = 1;
+	}
 	return (1);
 }
