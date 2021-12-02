@@ -21,33 +21,63 @@ int	check_char(char c)
 int	get_width(char *one_line)
 {
 	int	cnt;
+	int width;
+	char **splt;
 
+	width = 0;
 	cnt = 0;
-	while (one_line[cnt] != '\0')
+	while (one_line[cnt] != '1')
 	{
-		if (check_char(one_line[cnt] == -1))
-		{
-			printf("Bad map\n");
-			exit(1);
-		}
+		if (one_line[cnt] != '1' && one_line[cnt] != ' ')
+			printf("bad map");
+		if (cnt % 2 == 0)
+			width++;
 		cnt++;
 	}
-	return (cnt);
+	splt = ft_split(one_line, ' ');
+	cnt = 0;
+	while (splt[cnt] != NULL)
+	{
+		cnt++;
+		width++;
+	}
+	return (width);
 }
 
 int	*fill_data(int *int_str, char *line)
 {
 	int		cnt;
+	int		place;
+	char	**splt;
 
+	place = 0;
 	cnt = 0;
-	while (line[cnt] != '\0')
+	while (line[cnt] != '1')
 	{
-		if (line[cnt] == ' ')
-			int_str[cnt] = 0;
-		else if (line[cnt] == '1')
-			int_str[cnt] = 1;
-		else if (line[cnt] == '0')
-			int_str[cnt] = 0;
+		if (cnt % 2 == 0)
+		{
+			int_str[place] = 0;
+			place++;
+		}
+		cnt++;
+	}
+	cnt = 0;
+	splt = ft_split(line, ' ');
+	while (splt[cnt] != NULL)
+	{
+		if (splt[cnt][0] == '1')
+			int_str[place] = 1;
+		if (splt[cnt][0] == '0')
+			int_str[place] = 0;
+		if (splt[cnt][0] == 'N')
+			int_str[place] = NORTH;
+		if (splt[cnt][0] == 'S')
+			int_str[place] = SOUTH;
+		if (splt[cnt][0] == 'W')
+			int_str[place] = WEST;
+		if (splt[cnt][0] == 'E')
+			int_str[place] = EAST;
+		place++;
 		cnt++;
 	}
 	return (int_str);
@@ -62,29 +92,33 @@ int	textures(char *line, t_env *env)
 	{
 		while (line[cnt] != '.')
 		{
-			env->textures[NORTH] = ft_get_texture(env, line + cnt);
+			cnt++;
 		}
+		env->textures[NORTH] = ft_get_texture(env, line + cnt);
 	}
 	else if (ft_strncmp("SO", line, 2) == 0)
 	{
 		while (line[cnt] != '.')
 		{
-			env->textures[SOUTH] = ft_get_texture(env, line + cnt);
+			cnt++;
 		}
+			env->textures[SOUTH] = ft_get_texture(env, line + cnt);
 	}
 	else if (ft_strncmp("WE", line, 2) == 0)
 	{
 		while (line[cnt] != '.')
 		{
-			env->textures[WEST] = ft_get_texture(env, line + cnt);
+			cnt++;
 		}
+			env->textures[WEST] = ft_get_texture(env, line + cnt);
 	}
 	else if (ft_strncmp("EA", line, 2) == 0)
 	{
 		while (line[cnt] != '.')
 		{
-			env->textures[EAST] = ft_get_texture(env, line + cnt);
+			cnt++;
 		}
+			env->textures[EAST] = ft_get_texture(env, line + cnt);
 	}
 	return (0);
 }
@@ -138,6 +172,7 @@ int	fill_textures(int fd, t_env *env)
 			// get_next_line(fd, &line);
 			break;
 		}
+		i++;
 
 	}
 	return 1;
@@ -166,7 +201,7 @@ int	open_map(t_env *env)
 		exit (1);
 	size = 0;
 	fill_textures(fd, env);
-	while (get_next_line(fd, &line) && height < 8)
+	while (get_next_line(fd, &line))
 	{
 		height++;
 	}
@@ -176,19 +211,44 @@ int	open_map(t_env *env)
 	skip_str(fd, line);
 	while (get_next_line(fd, &line))
 	{
+		puts(line);
 		env->world_map[size] = malloc(sizeof(int) * get_width(line));
 		env->world_map[size] = fill_data(env->world_map[size], line);
+		size++;
 	}
+	env->world_map[size] = malloc(sizeof(int) * get_width(line));
+	env->world_map[size] = fill_data(env->world_map[size], line);
+	env->world_width = 10;
+	env->world_height = 5;
 	return (1);
+}
+
+void print(t_env *env)
+{
+	int i = 0, k = 0;
+
+	while (i < env->world_height)
+	{
+		k = 0;
+		while (k < env->world_width)
+		{
+			printf("%d ", env->world_map[i][k]);
+			k++;
+		}
+		i++;
+		printf("\n");
+	}
 }
 
 int	ft_parser(t_env *env)
 {
 	int	i;
-	int k = 1;
+	int k = 0;
 	if (k == 1)
 	{
 		open_map(env);
+		// print(env);
+		return 1;
 	}
 	else
 	{
