@@ -4,3 +4,4 @@
 .vscode
 *.o
 cub3d
+cub3d.dSYM
