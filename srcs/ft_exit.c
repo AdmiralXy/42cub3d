@@ -34,6 +34,7 @@ int	ft_exit(t_env *env)
 	mlx_destroy_image(env->mlx, env->img_ptr);
 	mlx_clear_window(env->mlx, env->mlx_win);
 	mlx_destroy_window(env->mlx, env->mlx_win);
+	free(env->map_name);
 	free(env);
 	exit(0);
 }

@@ -13,7 +13,8 @@ int	ft_move_forward(t_env *env)
 	y_step = (int)(env->p.pos_y + env->p.dir_y * env->p.move_speed);
 	old_pos_x = env->p.pos_x;
 	old_pos_y = env->p.pos_y;
-	if (x_step <= 24 && y_step <= 24 && x_step > 0 && y_step > 0)
+	if (x_step <= env->world_height && y_step <= env->world_width
+		&& x_step > 0 && y_step > 0)
 	{
 		if (env->world_map[x_step][(int)(env->p.pos_y)] == 0)
 			env->p.pos_x += env->p.dir_x * env->p.move_speed;
@@ -37,7 +38,8 @@ int	ft_move_back(t_env *env)
 	y_step = (int)(env->p.pos_y - env->p.dir_y * env->p.move_speed);
 	old_pos_x = env->p.pos_x;
 	old_pos_y = env->p.pos_y;
-	if (x_step <= 24 && y_step <= 24 && x_step > 0 && y_step > 0)
+	if (x_step <= env->world_height && y_step <= env->world_width
+		&& x_step > 0 && y_step > 0)
 	{
 		if (env->world_map[x_step][(int)(env->p.pos_y)] == 0)
 			env->p.pos_x -= env->p.dir_x * env->p.move_speed;
@@ -61,7 +63,8 @@ int	ft_move_left(t_env *env)
 	y_step = (int)(env->p.pos_y - env->p.plane_y * env->p.move_speed);
 	old_pos_x = env->p.pos_x;
 	old_pos_y = env->p.pos_y;
-	if (x_step <= 24 && y_step <= 24 && x_step > 0 && y_step > 0)
+	if (x_step <= env->world_height && y_step <= env->world_width
+		&& x_step > 0 && y_step > 0)
 	{
 		if (env->world_map[x_step][(int)(env->p.pos_y)] == 0)
 			env->p.pos_x -= env->p.plane_x * env->p.move_speed;
@@ -85,7 +88,8 @@ int	ft_move_right(t_env *env)
 	y_step = (int)(env->p.pos_y + env->p.plane_y * env->p.move_speed);
 	old_pos_x = env->p.pos_x;
 	old_pos_y = env->p.pos_y;
-	if (x_step <= 24 && y_step <= 24 && x_step > 0 && y_step > 0)
+	if (x_step <= env->world_height && y_step <= env->world_width
+		&& x_step > 0 && y_step > 0)
 	{
 		if (env->world_map[x_step][(int)(env->p.pos_y)] == 0)
 			env->p.pos_x += env->p.plane_x * env->p.move_speed;

@@ -73,6 +73,7 @@ int get_path(t_env *env)
 	int	cnt;
 	int	side;
 
+	(void)side;
 	cnt = 0;
 	env->ceil_color = -1;
 	env->floor_color = -1;
