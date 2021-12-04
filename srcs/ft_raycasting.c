@@ -72,7 +72,8 @@ void	ft_raycasting_texturing(t_env *env, t_raycasting *rcs, int x)
 	{
 		rcs->tex_y = (int)rcs->tex_pos & (env->textures[rcs->tx_n]->height - 1);
 		rcs->tex_pos += rcs->step;
-		color = env->textures[rcs->tx_n]->texture[env->textures[rcs->tx_n]->height * rcs->tex_y + rcs->tex_x];
+		color = env->textures[rcs->tx_n]->texture[
+			env->textures[rcs->tx_n]->height * rcs->tex_y + rcs->tex_x];
 		if (rcs->side == 1)
 			color = (color >> 1) & 8355711;
 		ft_put_pixel(env, ft_point(x, y), color);

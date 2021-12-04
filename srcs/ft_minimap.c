@@ -45,7 +45,7 @@ t_minimap	*ft_minimap_init(t_env *env)
 
 void	ft_minimap_to_screen(t_env *env)
 {
-	int i;
+	int	i;
 	int	j;
 
 	i = 0;
