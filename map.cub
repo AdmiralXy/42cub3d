@@ -1,13 +1,12 @@
-NO ./pics/redbrick.xpm
-SO ./pics/wood.xpm
-WE ./pics/bluestone.xpm
+
+
+
+      
+F 220,100,0
+
+                 NO                    ./pics/redbrick.xpm
+                        SO ./pics/wood.xpm
+WE                                ./pics/bluestone.xpm
+C 225,30,0
 EA ./pics/mossy.xpm
 
-F 220,100,0
-C 225,30,0
-
-1 1 1 1 1 1 1 1 1 1
-1 0 0 0 0 0 0 0 0 1
-1 0 0 0 0 N 0 0 0 1
-1 0 0 0 0 0 0 0 0 1
-1 1 1 1 1 1 1 1 1 1

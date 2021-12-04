@@ -17,6 +17,8 @@
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
+# define FLOOR 111
+# define CEIL 111
 # define MP_WALLS 0x000000
 # define MP_SPACE 0xffffff
 # define MP_PLAYER 0x00ff48
@@ -123,6 +125,10 @@ typedef struct s_env
 	int			world_height;
 	int			floor_color;
 	int			ceil_color;
+
+	char		*map_name;
+	char		**swne_path;
+
 	t_texture	**textures;
 	t_player	p;
 	t_minimap	*minimap;
@@ -162,5 +168,7 @@ int			ft_move_left(t_env *env);
 int			ft_move_right(t_env *env);
 int			ft_camera_left(t_env *env, double angle);
 int			ft_camera_right(t_env *env, double angle);
-
+//Dinar
+int	my_exit(int er_numb, t_env *env);
+int get_path(t_env *env);
 #endif
