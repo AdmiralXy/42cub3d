@@ -30,7 +30,6 @@ void	ft_initialize_keys(t_env *env)
 	mlx_do_key_autorepeaton(env->mlx);
 	mlx_hook(env->mlx_win, 17, 17, ft_exit, env);
 	mlx_hook(env->mlx_win, 2, 0, ft_key_mlx, env);
-	mlx_hook(env->mlx_win, 3, 0, ft_key_mlx, env);
 }
 
 int	ft_initialize_mlx(t_env *env)
@@ -79,7 +78,7 @@ int	ft_initialize(t_env *env)
 	if (!ft_initialize_mlx(env))
 		return (0);
 	ft_initialize_keys(env);
-	env->textures = malloc(sizeof(t_texture *) * 8);
+	env->textures = malloc(sizeof(t_texture *) * 4);
 	if (!env->textures)
 		return (0);
 	return (1);

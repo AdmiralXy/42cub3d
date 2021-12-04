@@ -20,6 +20,18 @@ void	ft_fill_ceil_floor(t_env *env)
 	}
 }
 
+void	ft_set_tx_n(t_raycasting *rcs)
+{
+	if (rcs->side == 0 && rcs->ray_dir_x > 0)
+		rcs->tx_n = NORTH;
+	else if (rcs->side == 0 && rcs->ray_dir_x < 0)
+		rcs->tx_n = SOUTH;
+	else if (rcs->side == 1 && rcs->ray_dir_y > 0)
+		rcs->tx_n = EAST;
+	else if (rcs->side == 1 && rcs->ray_dir_y < 0)
+		rcs->tx_n = WEST;
+}
+
 void	ft_raycasting_calculate(t_env *env, t_raycasting *rcs)
 {
 	if (rcs->side == 0)
@@ -39,27 +51,12 @@ void	ft_raycasting_calculate(t_env *env, t_raycasting *rcs)
 	else
 		rcs->wall_x = env->p.pos_x + rcs->perp_wall_dist * rcs->ray_dir_x;
 	rcs->wall_x -= floor((rcs->wall_x));
-	rcs->tex_x = (int)(rcs->wall_x * (double)(TX_WIDTH));
+	ft_set_tx_n(rcs);
+	rcs->tex_x = (int)(rcs->wall_x * (double)(env->textures[rcs->tx_n]->width));
 	if (rcs->side == 0 && rcs->ray_dir_x > 0)
-		rcs->tex_x = TX_WIDTH - rcs->tex_x - 1;
+		rcs->tex_x = env->textures[rcs->tx_n]->width - rcs->tex_x - 1;
 	if (rcs->side == 1 && rcs->ray_dir_y < 0)
-		rcs->tex_x = TX_WIDTH - rcs->tex_x - 1;
-}
-
-void	ft_texture_side(t_env *env, t_raycasting *rcs, int *color)
-{
-	if (rcs->side == 0 && rcs->ray_dir_x > 0)
-		*color = env->textures[0]->texture[TX_HEIGHT
-			* rcs->tex_y + rcs->tex_x];
-	else if (rcs->side == 0 && rcs->ray_dir_x < 0)
-		*color = env->textures[1]->texture[TX_HEIGHT
-			* rcs->tex_y + rcs->tex_x];
-	else if (rcs->side == 1 && rcs->ray_dir_y > 0)
-		*color = env->textures[2]->texture[TX_HEIGHT
-			* rcs->tex_y + rcs->tex_x];
-	else if (rcs->side == 1 && rcs->ray_dir_y < 0)
-		*color = env->textures[3]->texture[TX_HEIGHT
-			* rcs->tex_y + rcs->tex_x];
+		rcs->tex_x = env->textures[rcs->tx_n]->width - rcs->tex_x - 1;
 }
 
 void	ft_raycasting_texturing(t_env *env, t_raycasting *rcs, int x)
@@ -68,14 +65,14 @@ void	ft_raycasting_texturing(t_env *env, t_raycasting *rcs, int x)
 	int	y;
 
 	y = rcs->draw_start;
-	rcs->step = 1.0 * TX_HEIGHT / rcs->line_height;
+	rcs->step = 1.0 * env->textures[rcs->tx_n]->height / rcs->line_height;
 	rcs->tex_pos = (rcs->draw_start - rcs->pitch - WIN_HEIGHT / 2
 			+ rcs->line_height / 2) * rcs->step;
 	while (y < rcs->draw_end)
 	{
-		rcs->tex_y = (int)rcs->tex_pos & (TX_HEIGHT - 1);
+		rcs->tex_y = (int)rcs->tex_pos & (env->textures[rcs->tx_n]->height - 1);
 		rcs->tex_pos += rcs->step;
-		ft_texture_side(env, rcs, &color);
+		color = env->textures[rcs->tx_n]->texture[env->textures[rcs->tx_n]->height * rcs->tex_y + rcs->tex_x];
 		if (rcs->side == 1)
 			color = (color >> 1) & 8355711;
 		ft_put_pixel(env, ft_point(x, y), color);

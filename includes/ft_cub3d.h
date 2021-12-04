@@ -13,8 +13,6 @@
 # define WIN_TITLE "42cub3d"
 # define WIN_HEIGHT 1280
 # define WIN_WIDTH 720
-# define TX_WIDTH 64
-# define TX_HEIGHT 64
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
@@ -92,6 +90,7 @@ typedef struct s_raycasting
 	double	ray_dir_y;
 	int		map_x;
 	int		map_y;
+	int		tx_n;
 	double	side_dist_x;
 	double	side_dist_y;
 	double	delta_dist_x;
