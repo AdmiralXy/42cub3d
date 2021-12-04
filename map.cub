@@ -4,11 +4,11 @@
       
 F 220,100,0
 
-                 NO                    ./pics/redbrick.xpm
-                        SO ./pics/wood.xpm
-WE                                ./pics/bluestone.xpm
+                 NO                    ./textures/redbrick.xpm
+                        SO ./textures/wood.xpm
+WE                                ./textures/bluestone.xpm
 C 225,30,0
-EA ./pics/mossy.xpm
+EA ./textures/mossy.xpm
 11111
 10001
 11111

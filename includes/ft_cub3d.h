@@ -175,4 +175,8 @@ int	my_exit(int er_numb, t_env *env);
 int get_path(t_env *env);
 int	fill_floor_ceil(t_env *env, char *line, int f_or_c);
 int	rewrite_map(t_env *env);
+int	check_line(char *line);
+int	get_height(t_env *env);
+int get_cur_str(t_env *env);
+int	validate_symb(char c);
 #endif

@@ -23,7 +23,8 @@ SRCS = srcs/ft_main.c \
 		srcs/get_pics.c\
 		srcs/exit.c\
 		srcs/floor_ceil.c\
-		srcs/parse_map.c
+		srcs/parse_map.c\
+		srcs/parse_map_helper.c
 
 OBJS = $(SRCS:%.c=%.o)
 
