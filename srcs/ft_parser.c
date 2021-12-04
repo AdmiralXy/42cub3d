@@ -25,10 +25,10 @@ int	ft_parser(t_env *env)
 	env->p.pos_x = 22;
 	env->p.pos_y = 12;
 	//env->p.direction = WEST;
-	env->textures[NORTH] = ft_get_texture(env, "pics/redbrick.xpm");
-	env->textures[SOUTH] = ft_get_texture(env, "pics/wood.xpm");
-	env->textures[EAST] = ft_get_texture(env, "pics/bluestone.xpm");
-	env->textures[WEST] = ft_get_texture(env, "pics/mossy.xpm");
+	env->textures[NORTH] = ft_get_texture(env, "textures/4096x4096/corinth.xpm");
+	env->textures[SOUTH] = ft_get_texture(env, "textures/512x512/tile.xpm");
+	env->textures[EAST] = ft_get_texture(env, "textures/256x256/roof.xpm");
+	env->textures[WEST] = ft_get_texture(env, "textures/64x64/wood.xpm");
 	env->floor_color = ft_rgb_to_hex(200, 109, 30);
 	env->ceil_color = ft_rgb_to_hex(30, 115, 200);
 	env->world_width = 24;
