@@ -20,7 +20,7 @@
 # define EAST 2
 # define WEST 3
 # define FLOOR 111
-# define CEIL 111
+# define CEIL 112
 # define MP_WALLS 0x000000
 # define MP_SPACE 0xffffff
 # define MP_PLAYER 0x00ff48
@@ -129,6 +129,8 @@ typedef struct s_env
 
 	char		*map_name;
 	char		**swne_path;
+	int			fd;
+	int			strs;
 
 	t_texture	**textures;
 	t_player	p;
@@ -172,4 +174,6 @@ int			ft_camera_right(t_env *env, double angle);
 //Dinar
 int	my_exit(int er_numb, t_env *env);
 int get_path(t_env *env);
+int	fill_floor_ceil(t_env *env, char *line, int f_or_c);
+int	rewrite_map(t_env *env);
 #endif

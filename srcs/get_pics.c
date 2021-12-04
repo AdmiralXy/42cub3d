@@ -27,6 +27,7 @@ int	get_pic_path(t_env *env, int fd)
 
 	while (get_next_line(fd, &line))
 	{
+		env->strs++;
 		line = ft_strtrim(line, " ");
 		line = ft_strtrim(line, "\t");
 		if (line[0] != '\0')
@@ -37,37 +38,59 @@ int	get_pic_path(t_env *env, int fd)
 		cnt++;
 	side = choose_side(env, line + cnt);
 	if (side == FLOOR || side == CEIL)
+	{
+		fill_floor_ceil(env, line, side);
+		return (10);
+	}
 	if (env->swne_path[side][0] != '\0')
 		my_exit(1, env);
 	while (line[cnt] != '.')
 		cnt++;
 	env->swne_path[side] = ft_strdup(line + cnt);
-	puts(env->swne_path[side]);
 	return (side);
+}
+
+int valid_checker(t_env *env)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (cnt < 4)
+	{
+		if (env->swne_path[cnt][0] == '\0')
+		{
+			my_exit(1, env);
+		}
+		cnt++;
+	}
+	if (env->ceil_color == -1 || env->floor_color == -1)
+		my_exit(1, env);
+	return (1);
 }
 
 int get_path(t_env *env)
 {
-	int	fd;
 	int	cnt;
 	int	side;
 
 	cnt = 0;
-	fd = open(env->map_name, O_RDONLY, 0);
+	env->ceil_color = -1;
+	env->floor_color = -1;
+	env->strs = 0;
+	env->fd = open(env->map_name, O_RDONLY, 0);
 	env->swne_path = malloc(sizeof(char *) * 4);
 	cnt = -1;
-	if (fd == -1)
+	if (env->fd == -1)
 		my_exit(1, env);
 	while (++cnt < 4)
 		env->swne_path[cnt] = ft_calloc(1, 1);
 	cnt = 0;
-	while (cnt < 4)
+	while (cnt < 6)
 	{
-		side = get_pic_path(env, fd);
+		side = get_pic_path(env, env->fd);
 		cnt++;
 	}
-	cnt = -1;
-	return (1);
+	return (valid_checker(env));
 }
 
 //2 func

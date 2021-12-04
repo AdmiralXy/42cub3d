@@ -21,7 +21,9 @@ SRCS = srcs/ft_main.c \
 		srcs/ft_minimap.c \
 		srcs/ft_minimap_utils.c\
 		srcs/get_pics.c\
-		srcs/exit.c
+		srcs/exit.c\
+		srcs/floor_ceil.c\
+		srcs/parse_map.c
 
 OBJS = $(SRCS:%.c=%.o)
 

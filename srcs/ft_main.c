@@ -12,7 +12,7 @@ int	main(int ac, char **av)
 	// if (!ft_initialize(env))
 	// 	return (1);
 	get_path(env);
-	puts(env->swne_path[NORTH]);
+	rewrite_map(env);
 	// if (!ft_parser(env))
 	// 	return (1);
 	// ft_initialize_graphics(env);
