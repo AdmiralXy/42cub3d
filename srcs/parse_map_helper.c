@@ -1,59 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map_helper.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/05 17:45:49 by faggar            #+#    #+#             */
+/*   Updated: 2021/12/05 19:49:15 by faggar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_cub3d.h"
 
 int	check_line(char *line)
 {
-	line = ft_strtrim(line, " ");
-	line = ft_strtrim(line, "\t");
-	if (line[0] != '\0')
-		return (1);
+	int	cnt;
+
+	cnt = -1;
+	while (line[++cnt] != 0)
+	{
+		if (line[cnt] != ' ' && line[cnt] != '\t')
+			return (1);
+	}
 	return (-1);
-}
-
-int	get_height(t_env *env)
-{
-	int		cnt;
-	int		tmp;
-	char	*line;
-	int		flag;
-
-	cnt = 0;
-	while (get_next_line(env->fd, &line))
-	{
-		env->strs++;
-		if (check_line(line) == 1)
-			break;
-	}
-	flag = 0;
-	while (get_next_line(env->fd, &line))
-	{
-		tmp = ft_strlen(line);
-		if (env->world_width < tmp)
-			env->world_width = tmp;
-		if (check_line(line) == -1)
-		{
-			flag = 1;
-			break;
-		}
-		cnt++;
-	}
-	if (flag == 1)
-	{
-		while (get_next_line(env->fd, &line))
-		{
-			if (check_line(line) == 1)
-				my_exit(2, env);
-		}
-		if (check_line(line) == 1)
-			my_exit(2, env);
-	}
-	else
-	{
-		if (check_line(line) == 1)
-			cnt++;
-	}
-	close(env->fd);
-
-	return (cnt + 1);
 }
 
 int	validate_symb(char c)
@@ -74,7 +43,8 @@ int	validate_symb(char c)
 		return (PLAYER_WEST);
 	return (-1);
 }
-int get_cur_str(t_env *env)
+
+int	get_cur_str(t_env *env)
 {
 	int		i;
 	char	*line;
@@ -82,6 +52,9 @@ int get_cur_str(t_env *env)
 	i = 0;
 	env->fd = open(env->map_name, O_RDONLY, 0);
 	while (++i < env->strs)
+	{
 		get_next_line(env->fd, &line);
-	return 1;
+		free(line);
+	}
+	return (1);
 }

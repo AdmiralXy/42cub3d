@@ -4,7 +4,7 @@
  * Документация:
  * Парсер должен заполнить:
  * env->p.posX, env->p.posY - начальная позиция игрока по x и y на карте
- * env->p.direction - начальное направление взгляда
+ * env->p.initial_direction - начальное направление взгляда
  * env->world_height, env->world_width - длина и ширина мира
  * env->world_map - двумерный массив int'ов, сам мир
  * 4 Текстуры
@@ -24,7 +24,7 @@ int	ft_parser(t_env *env)
 	
 	env->p.pos_x = 22;
 	env->p.pos_y = 12;
-	//env->p.direction = WEST;
+	env->p.initial_direction = WEST;
 	env->textures[NORTH] = ft_get_texture(env, "textures/4096x4096/corinth.xpm");
 	env->textures[SOUTH] = ft_get_texture(env, "textures/512x512/tile.xpm");
 	env->textures[EAST] = ft_get_texture(env, "textures/256x256/roof.xpm");

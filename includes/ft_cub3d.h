@@ -141,6 +141,7 @@ typedef struct s_env
 	int			fd;
 	int			strs;
 	int			player;
+	int			tmp;
 
 	t_texture	**textures;
 	t_player	p;
@@ -191,4 +192,8 @@ int	get_height(t_env *env);
 int get_cur_str(t_env *env);
 int	validate_symb(char c);
 int	finish_map_parser(t_env *env);
+void	better_check_horizontal(t_env *env, int number, int cnt);
+void	better_check_vertical(t_env *env, int number, int cnt);
+void	check_first_last_str(t_env *env, int number);
+void	fill_int_array(t_env *env, char *line, int number);
 #endif

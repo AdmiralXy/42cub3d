@@ -1,41 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/05 18:03:32 by faggar            #+#    #+#             */
+/*   Updated: 2021/12/05 19:35:58 by faggar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_cub3d.h"
-
-void	fill_int_p2(t_env *env, int number, int cnt)
-{
-	while (cnt < env->world_width)
-	{
-		env->world_map[number][cnt] = -1;
-		cnt++;
-	}
-}
-
-
-void	fill_int_array(t_env *env, char *line, int number)
-{
-	int	cnt;
-	int	tmp;
-
-	cnt = 0;
-	while (line[cnt] != 0)
-	{
-		tmp = validate_symb(line[cnt]);
-		if (tmp == SPACE)
-			env->world_map[number][cnt] = -1;
-		else if (tmp == SYMB_ONE)
-			env->world_map[number][cnt] = 1;
-		else if (tmp == SYMB_ZERO)
-			env->world_map[number][cnt] = 0;
-		else if (tmp >= PLAYER_NORTH && tmp <= PLAYER_WEST)
-		{
-			if (env->player != 0)
-				my_exit(3, env);
-			env->world_map[number][cnt] = tmp;
-			env->player = 1;
-		}
-		cnt++;
-	}
-	fill_int_p2(env, number, cnt);
-}
 
 void	check_first_end(t_env *env, char *line, int number)
 {
@@ -43,7 +18,7 @@ void	check_first_end(t_env *env, char *line, int number)
 	char	a;
 
 	cnt = 0;
-	while(line[cnt] != 0)
+	while (line[cnt] != 0)
 	{
 		a = line[cnt];
 		if (a != '1' && a != ' ')
@@ -63,11 +38,11 @@ void	check_middle(t_env *env, char *line, int number)
 		check_first_end(env, line, number);
 	else
 	{
-		while(line[cnt] != 0)
+		while (line[cnt] != 0)
 		{
 			tmp = validate_symb(line[cnt]);
 			if (tmp == -1)
-				my_exit(2, env);			
+				my_exit(2, env);
 			cnt++;
 		}
 		fill_int_array(env, line, number);
@@ -82,16 +57,18 @@ int	write_array_par(t_env *env)
 	cnt = 0;
 	get_next_line(env->fd, &line);
 	check_first_end(env, line, cnt++);
+	free(line);
 	while (cnt < env->world_height)
 	{
 		get_next_line(env->fd, &line);
 		check_middle(env, line, cnt);
+		free(line);
 		cnt++;
 	}
-	return 1;
+	return (1);
 }
 
-void malloc_arrays(t_env *env)
+void	malloc_arrays(t_env *env)
 {
 	int	cnt;
 
@@ -116,5 +93,5 @@ int	rewrite_map(t_env *env)
 	get_cur_str(env);
 	write_array_par(env);
 	finish_map_parser(env);
-	return 1;
+	return (1);
 }

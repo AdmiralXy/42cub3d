@@ -13,19 +13,24 @@ void write_map(t_env *env)
 			printf("%d", env->world_map[cnt][k]);
 			k++;
 		}
+		free(env->world_map[cnt]);
 		puts("");
 		cnt++;
 	}
+	free(env->world_map);
 }
-
 int	main(int ac, char **av)
 {
 	t_env	*env;
 
 	if (ac == 2)
+	{
+		//ft_putstr_fd("error: cub3d: please specify the path to the map!\n", 1);
 		exit(1);
+	}
 	(void)av;
 	env = malloc(sizeof(t_env));
+	//env->map_name = ft_strdup(argv[1]);
 	env->map_name = ft_strdup("map.cub");
 	//  if (!ft_initialize(env))
 	//  	return (1);
@@ -39,4 +44,7 @@ int	main(int ac, char **av)
 	//  ft_raycasting(env);
 	//  mlx_loop(env->mlx);
 	// return (0);
+	free(env->map_name);
+	free(env);
+	sleep(10);
 }
