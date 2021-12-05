@@ -24,6 +24,16 @@
 # define MP_PLAYER 0x00ff48
 # define MP_OFFSET 45
 
+//map symbs
+# define SPACE 5
+# define SYMB_ONE 6
+# define PLAYER_POS 10
+# define SYMB_ZERO 7
+# define PLAYER_NORTH 11
+# define PLAYER_SOUTH 12
+# define PLAYER_EAST 13
+# define PLAYER_WEST 14
+
 // Controls
 # if __APPLE__
 #  define KEY_EXIT 53
@@ -130,6 +140,7 @@ typedef struct s_env
 	char		**swne_path;
 	int			fd;
 	int			strs;
+	int			player;
 
 	t_texture	**textures;
 	t_player	p;
@@ -179,4 +190,5 @@ int	check_line(char *line);
 int	get_height(t_env *env);
 int get_cur_str(t_env *env);
 int	validate_symb(char c);
+int	finish_map_parser(t_env *env);
 #endif
