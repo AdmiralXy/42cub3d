@@ -1,19 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_main.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/05 18:08:38 by kricky            #+#    #+#             */
+/*   Updated: 2021/12/05 18:08:48 by kricky           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_cub3d.h"
 
 int	main(int argc, char **argv)
 {
 	t_env	*env;
 
-	if (argc == 2)
+	if (argc != 2)
 	{
 		ft_error("usage ./cub3d [path_to_the_map]");
 		exit(1);
 	}
 	env = malloc(sizeof(t_env));
-	env->map_name = ft_strdup("new.cub");
+	env->map_name = ft_strdup(argv[1]);
 	if (!ft_initialize(env))
 		return (1);
-	(void)argv;
 	get_path(env);
 	rewrite_map(env);
 	ft_initialize_graphics(env);
