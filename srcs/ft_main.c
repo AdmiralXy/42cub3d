@@ -6,7 +6,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_error("please specify the path to the map!");
+		ft_error("usage ./cub3d [path_to_the_map]");
 		exit(1);
 	}
 	env = malloc(sizeof(t_env));
