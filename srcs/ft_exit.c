@@ -1,5 +1,11 @@
 #include "ft_cub3d.h"
 
+void	ft_error(const char *error)
+{
+	ft_putstr_fd("error: cub3d: ", 1);
+	ft_putendl_fd((char *)error, 1);
+}
+
 void	ft_clear_world(t_env *env)
 {
 	int	i;
@@ -20,8 +26,11 @@ void	ft_clear_textures(t_env *env)
 	i = 0;
 	while (i < 4)
 	{
-		mlx_destroy_image(env->mlx, env->textures[i]->image);
-		free(env->textures[i]);
+		if (env->textures[i])
+		{
+			mlx_destroy_image(env->mlx, env->textures[i]->image);
+			free(env->textures[i]);
+		}
 		i++;
 	}
 	free(env->textures);

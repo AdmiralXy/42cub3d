@@ -5,7 +5,6 @@ int	ft_key_mlx(int keycode, t_env *env)
 	int	redraw;
 
 	redraw = 0;
-	printf("Pressed: %d\n", keycode);
 	if (keycode == KEY_EXIT)
 		ft_exit(env);
 	if (keycode == KEY_UP)
@@ -81,5 +80,9 @@ int	ft_initialize(t_env *env)
 	env->textures = malloc(sizeof(t_texture *) * 4);
 	if (!env->textures)
 		return (0);
+	env->textures[NORTH] = 0;
+	env->textures[SOUTH] = 0;
+	env->textures[WEST] = 0;
+	env->textures[EAST] = 0;
 	return (1);
 }
