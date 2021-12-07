@@ -146,8 +146,8 @@ void	fill_int_array(t_env *env, char *line, int number)
 			if (env->player != 0)
 				my_exit(3, env);
 			env->world_map[number][arr_cnt] = 0;
-			env->p.pos_x = number;
-			env->p.pos_y = arr_cnt;
+			env->p.pos_x = number + 0.5;
+			env->p.pos_y = arr_cnt + 0.5;
 			env->player = 1;
 			env->p.initial_direction = tmp - 11;
 		}
