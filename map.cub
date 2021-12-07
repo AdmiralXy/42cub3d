@@ -4,14 +4,13 @@
       
 F 220  ,   100 ,0
 
-                 NO                    ./textures/redbrick.xpm
-                        SO  ./textures/wood.xpm
-WE                                ./textures/bluestone.xpm
+                 NO                    ./textures/64x64/redbrick.xpm
+                        SO  ./textures/64x64/wood.xpm
+WE                                ./textures/64x64/bluestone.xpm
 C 225            ,30            ,0      
 EA ./textures/mossy.xpm
 
-	1111
- 	1N01
- 	1111
-
-                      
+		1111
+        1N01
+ 		1111
+                     

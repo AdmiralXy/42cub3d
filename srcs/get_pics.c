@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:07:23 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/05 19:39:32 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/07 15:56:19 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,9 @@ int	get_path(t_env *env)
 		side = get_pic_path(env, env->fd);
 		cnt++;
 	}
-	env->textures[NORTH] = ft_get_texture(env, env->swne_path[NORTH]);
-	env->textures[SOUTH] = ft_get_texture(env, env->swne_path[SOUTH]);
-	env->textures[EAST] = ft_get_texture(env, env->swne_path[EAST]);
-	env->textures[WEST] = ft_get_texture(env, env->swne_path[WEST]);
+	// env->textures[NORTH] = ft_get_texture(env, env->swne_path[NORTH]);
+	// env->textures[SOUTH] = ft_get_texture(env, env->swne_path[SOUTH]);
+	// env->textures[EAST] = ft_get_texture(env, env->swne_path[EAST]);
+	// env->textures[WEST] = ft_get_texture(env, env->swne_path[WEST]);
 	return (valid_checker(env));
 }

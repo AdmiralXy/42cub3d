@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:55:08 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/05 17:59:52 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/07 16:10:16 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ void	check_first_last_str(t_env *env, int number)
 		}
 	}
 }
-
 void	better_check_vertical(t_env *env, int number, int cnt)
 {
 	int	vertical;
+	int k;
 
 	vertical = 1;
 	while (env->world_map[number - vertical][cnt] != 1)
 	{
+		k = env->world_map[number - vertical][cnt+1];
 		if (number - vertical == 0
 			&& env->world_map[number - vertical][cnt] != 1)
 			my_exit(2, env);
