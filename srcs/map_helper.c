@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:45:53 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/05 19:31:57 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/07 14:52:15 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,11 @@ void	fill_int_array(t_env *env, char *line, int number)
 		{
 			if (env->player != 0)
 				my_exit(3, env);
-			env->world_map[number][cnt] = tmp;
+			env->world_map[number][cnt] = 0;
+			env->p.pos_x = cnt;
+			env->p.pos_y = number;
 			env->player = 1;
+			env->p.initial_direction = tmp - 11;
 		}
 		cnt++;
 	}

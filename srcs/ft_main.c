@@ -46,5 +46,4 @@ int	main(int ac, char **av)
 	// return (0);
 	free(env->map_name);
 	free(env);
-	sleep(10);
 }
