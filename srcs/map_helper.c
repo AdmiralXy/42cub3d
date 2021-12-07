@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:45:53 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/07 16:14:32 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/07 16:30:42 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,10 @@ void	for_tabs(int **line, int * cnt)
 	i = 0;
 	while (i < 4)
 	{
-		(*line)[*cnt + i] = -1;
+		(*line)[(*cnt) + i] = -1;
 		i++;
 	}
+	(*cnt) += 3;
 }
 
 void print(int *line, t_env *env)
@@ -129,6 +130,7 @@ void print(int *line, t_env *env)
 		printf("%d ", line[i]);
 		i++;
 	}
+	printf("\n");
 }
 
 void	fill_int_array(t_env *env, char *line, int number)
@@ -158,8 +160,8 @@ void	fill_int_array(t_env *env, char *line, int number)
 			env->player = 1;
 			env->p.initial_direction = tmp - 11;
 		}
-		print(env->world_map[number], env);
 		cnt++;
 	}
+		print(env->world_map[number], env);
 	fill_int_p2(env, number, cnt);
 }

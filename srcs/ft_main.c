@@ -11,8 +11,8 @@ int	main(int argc, char **argv)
 	}
 	env = malloc(sizeof(t_env));
 	env->map_name = ft_strdup("map.cub");
-	// if (!ft_initialize(env))
-	// 	return (1);
+	if (!ft_initialize(env))
+		return (1);
 	(void)argv;
 	get_path(env);
 	rewrite_map(env);
