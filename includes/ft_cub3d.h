@@ -11,8 +11,8 @@
 
 // Constants
 # define WIN_TITLE "42cub3d"
-# define WIN_HEIGHT 1280
-# define WIN_WIDTH 720
+# define WIN_HEIGHT 1366
+# define WIN_WIDTH 768
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2

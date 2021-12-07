@@ -69,10 +69,12 @@ void	ft_minimap_to_screen(t_env *env)
 void	ft_minimap(t_env *env)
 {
 	int	max_steps;
+	int	min_width;
 
+	min_width = (int)(0.14 * WIN_WIDTH);
 	env->minimap = ft_minimap_init(env);
 	max_steps = 100;
-	while (env->minimap->width < 180 || env->minimap->width > 500)
+	while (env->minimap->width < min_width || env->minimap->width > min_width + 500)
 	{
 		if (env->minimap->width < 200)
 		{
