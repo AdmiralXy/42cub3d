@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:45:49 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/05 19:49:15 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/07 15:14:21 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	validate_symb(char c)
 {
 	if (c == ' ')
 		return (SPACE);
+	else if (c == '\t')
+		return (TAB);
 	else if (c == '1')
 		return (SYMB_ONE);
 	else if (c == '0')

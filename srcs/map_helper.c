@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:45:53 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/07 14:52:15 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/07 15:43:25 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,23 @@ void	skip_empty_lines(t_env *env, char **line)
 	}
 }
 
+int	get_len(char *line)
+{
+	int	i;
+	int	tabs;
+
+	i = 0;
+	tabs = 0;
+	while (line[i] != 0)
+	{
+		if (line[i] == '\t')
+			tabs++;
+		i++;
+	}
+	int j = i - tabs + tabs * 4;
+	return (j);
+}
+
 int	get_height(t_env *env)
 {
 	int		cnt;
@@ -66,7 +83,7 @@ int	get_height(t_env *env)
 	flag = 0;
 	while (get_next_line(env->fd, &line))
 	{
-		tmp = ft_strlen(line);
+		tmp = get_len(line);
 		if (env->world_width < tmp)
 			env->world_width = tmp;
 		if (check_line(line) == -1)
@@ -90,6 +107,18 @@ void	fill_int_p2(t_env *env, int number, int cnt)
 	}
 }
 
+void	for_tabs(int **line, int * cnt)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		*line[*cnt + i] = -1;
+		i++;
+	}
+}
+
 void	fill_int_array(t_env *env, char *line, int number)
 {
 	int	cnt;
@@ -101,6 +130,8 @@ void	fill_int_array(t_env *env, char *line, int number)
 		tmp = validate_symb(line[cnt]);
 		if (tmp == SPACE)
 			env->world_map[number][cnt] = -1;
+		else if (tmp == TAB)
+			for_tabs(&env->world_map[number], &cnt);
 		else if (tmp == SYMB_ONE)
 			env->world_map[number][cnt] = 1;
 		else if (tmp == SYMB_ZERO)

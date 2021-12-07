@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:03:32 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/05 19:35:58 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/07 15:34:52 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@ void	check_first_end(t_env *env, char *line, int number)
 {
 	int		cnt;
 	char	a;
+	int		tabs;
 
 	cnt = 0;
+	tabs = 0;
 	while (line[cnt] != 0)
 	{
 		a = line[cnt];
-		if (a != '1' && a != ' ')
+		if (a != '1' && a != ' ' && a != '\t')
 			my_exit(2, env);
+		// if (a == '\t')
+		// 	tabs++;
 		cnt++;
 	}
 	fill_int_array(env, line, number);

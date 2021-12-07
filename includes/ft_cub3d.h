@@ -26,6 +26,7 @@
 
 //map symbs
 # define SPACE 5
+# define TAB 414
 # define SYMB_ONE 6
 # define PLAYER_POS 10
 # define SYMB_ZERO 7
