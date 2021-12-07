@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:45:53 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/07 16:30:42 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/07 17:04:39 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	get_len(char *line)
 		i++;
 	}
 	int j = i - tabs + tabs * 4;
+	// printf("J IS %d\n", j);
 	return (j);
 }
 
@@ -94,6 +95,9 @@ int	get_height(t_env *env)
 		free(line);
 		cnt++;
 	}
+	tmp = get_len(line);
+	if (env->world_width < tmp)
+		env->world_width = tmp;
 	get_height_p2(env, line, &cnt, flag);
 	return (cnt + 1);
 }
@@ -107,61 +111,50 @@ void	fill_int_p2(t_env *env, int number, int cnt)
 	}
 }
 
-void	for_tabs(int **line, int * cnt)
+void	for_tabs(int *line, int *cnt)
 {
 	int	i;
 
 	i = 0;
 	while (i < 4)
 	{
-		(*line)[(*cnt) + i] = -1;
+		line[(*cnt) + i] = -1;
 		i++;
 	}
 	(*cnt) += 3;
-}
-
-void print(int *line, t_env *env)
-{
-	int i;
-
-	i = 0;
-	while (i < env->world_width)
-	{
-		printf("%d ", line[i]);
-		i++;
-	}
-	printf("\n");
 }
 
 void	fill_int_array(t_env *env, char *line, int number)
 {
 	int	cnt;
 	int	tmp;
+	int	arr_cnt;
 
 	cnt = 0;
+	arr_cnt = 0;
 	while (line[cnt] != 0)
 	{
 		tmp = validate_symb(line[cnt]);
 		if (tmp == SPACE)
-			env->world_map[number][cnt] = -1;
+			env->world_map[number][arr_cnt] = -1;
 		else if (tmp == TAB)
-			for_tabs(&env->world_map[number], &cnt);
+			for_tabs(env->world_map[number], &arr_cnt);
 		else if (tmp == SYMB_ONE)
-			env->world_map[number][cnt] = 1;
+			env->world_map[number][arr_cnt] = 1;
 		else if (tmp == SYMB_ZERO)
-			env->world_map[number][cnt] = 0;
+			env->world_map[number][arr_cnt] = 0;
 		else if (tmp >= PLAYER_NORTH && tmp <= PLAYER_WEST)
 		{
 			if (env->player != 0)
 				my_exit(3, env);
-			env->world_map[number][cnt] = 0;
+			env->world_map[number][arr_cnt] = 0;
 			env->p.pos_x = number;
-			env->p.pos_y = cnt;
+			env->p.pos_y = arr_cnt;
 			env->player = 1;
 			env->p.initial_direction = tmp - 11;
 		}
+		arr_cnt++;
 		cnt++;
 	}
-		print(env->world_map[number], env);
-	fill_int_p2(env, number, cnt);
+	fill_int_p2(env, number, arr_cnt);
 }

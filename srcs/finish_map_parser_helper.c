@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:55:08 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/07 16:10:16 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/07 16:58:04 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ void	better_check_vertical(t_env *env, int number, int cnt)
 	int k;
 
 	vertical = 1;
+	for (int i = 0; i < env->world_height; i++)
+	{
+		for (int s = 0; s < env->world_width; s++)
+			printf("%d ", env->world_map[i][s]);
+		puts("");
+	}
 	while (env->world_map[number - vertical][cnt] != 1)
 	{
 		k = env->world_map[number - vertical][cnt+1];

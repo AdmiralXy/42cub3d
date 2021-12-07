@@ -16,10 +16,10 @@ int	main(int argc, char **argv)
 	(void)argv;
 	get_path(env);
 	rewrite_map(env);
-	// ft_initialize_graphics(env);
-	// ft_minimap(env);
-	// ft_raycasting(env);
-	// mlx_loop(env->mlx);
-	// free(env->map_name);
-	// free(env);
+	ft_initialize_graphics(env);
+	ft_minimap(env);
+	ft_raycasting(env);
+	mlx_loop(env->mlx);
+	free(env->map_name);
+	free(env);
 }
