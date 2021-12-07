@@ -26,8 +26,11 @@ void	ft_clear_textures(t_env *env)
 	i = 0;
 	while (i < 4)
 	{
-		mlx_destroy_image(env->mlx, env->textures[i]->image);
-		free(env->textures[i]);
+		if (env->textures[i])
+		{
+			mlx_destroy_image(env->mlx, env->textures[i]->image);
+			free(env->textures[i]);
+		}
 		i++;
 	}
 	free(env->textures);

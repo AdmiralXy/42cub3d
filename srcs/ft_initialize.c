@@ -80,5 +80,9 @@ int	ft_initialize(t_env *env)
 	env->textures = malloc(sizeof(t_texture *) * 4);
 	if (!env->textures)
 		return (0);
+	env->textures[NORTH] = 0;
+	env->textures[SOUTH] = 0;
+	env->textures[WEST] = 0;
+	env->textures[EAST] = 0;
 	return (1);
 }
