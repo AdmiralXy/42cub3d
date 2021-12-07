@@ -62,7 +62,7 @@ int	ft_initialize_graphics(t_env *env)
 	env->p.dir_y = 0;
 	env->p.plane_x = 0;
 	env->p.plane_y = 0.66;
-	if (env->p.initial_direction == NORTH)
+	if (env->p.initial_direction == SOUTH)
 		ft_camera_left(env, 3.15);
 	if (env->p.initial_direction == EAST)
 		ft_camera_right(env, 1.55);

@@ -23,9 +23,9 @@ void	ft_fill_ceil_floor(t_env *env)
 void	ft_set_tx_n(t_raycasting *rcs)
 {
 	if (rcs->side == 0 && rcs->ray_dir_x > 0)
-		rcs->tx_n = NORTH;
-	else if (rcs->side == 0 && rcs->ray_dir_x < 0)
 		rcs->tx_n = SOUTH;
+	else if (rcs->side == 0 && rcs->ray_dir_x < 0)
+		rcs->tx_n = NORTH;
 	else if (rcs->side == 1 && rcs->ray_dir_y > 0)
 		rcs->tx_n = EAST;
 	else if (rcs->side == 1 && rcs->ray_dir_y < 0)
