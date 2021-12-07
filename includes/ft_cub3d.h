@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cub3d.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/05 18:08:38 by kricky            #+#    #+#             */
+/*   Updated: 2021/12/05 18:08:48 by kricky           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_CUB3D_H
 # define FT_CUB3D_H
 
@@ -23,12 +35,9 @@
 # define MP_SPACE 0xffffff
 # define MP_PLAYER 0x00ff48
 # define MP_OFFSET 45
-
-//map symbs
 # define SPACE 5
 # define TAB 414
 # define SYMB_ONE 6
-# define PLAYER_POS 10
 # define SYMB_ZERO 7
 # define PLAYER_NORTH 11
 # define PLAYER_SOUTH 12
@@ -91,7 +100,7 @@ typedef struct s_minimap
 	int	**map;
 	int	height;
 	int	width;
-	int scale;
+	int	scale;
 }	t_minimap;
 
 typedef struct s_raycasting
@@ -136,14 +145,11 @@ typedef struct s_env
 	int			world_height;
 	int			floor_color;
 	int			ceil_color;
-
 	char		*map_name;
 	char		**swne_path;
 	int			fd;
 	int			strs;
 	int			player;
-	int			tmp;
-
 	t_texture	**textures;
 	t_player	p;
 	t_minimap	*minimap;
@@ -154,7 +160,19 @@ int			ft_initialize(t_env *env);
 int			ft_initialize_graphics(t_env *env);
 
 // Parser functions
-int			ft_parser(t_env *env);
+int			my_exit(int er_numb, t_env *env);
+int			get_path(t_env *env);
+int			fill_floor_ceil(t_env *env, char *line, int f_or_c);
+int			rewrite_map(t_env *env);
+int			check_line(char *line);
+int			get_height(t_env *env);
+int			get_cur_str(t_env *env);
+int			validate_symb(char c);
+int			finish_map_parser(t_env *env);
+void		better_check_horizontal(t_env *env, int number, int cnt);
+void		better_check_vertical(t_env *env, int number, int cnt);
+void		check_first_last_str(t_env *env, int number);
+void		fill_int_array(t_env *env, char *line, int number);
 
 // Drawing utilities functions
 int			ft_rgb_to_hex(int r, int g, int b);
@@ -184,18 +202,5 @@ int			ft_move_left(t_env *env);
 int			ft_move_right(t_env *env);
 int			ft_camera_left(t_env *env, double angle);
 int			ft_camera_right(t_env *env, double angle);
-//Dinar
-int	my_exit(int er_numb, t_env *env);
-int get_path(t_env *env);
-int	fill_floor_ceil(t_env *env, char *line, int f_or_c);
-int	rewrite_map(t_env *env);
-int	check_line(char *line);
-int	get_height(t_env *env);
-int get_cur_str(t_env *env);
-int	validate_symb(char c);
-int	finish_map_parser(t_env *env);
-void	better_check_horizontal(t_env *env, int number, int cnt);
-void	better_check_vertical(t_env *env, int number, int cnt);
-void	check_first_last_str(t_env *env, int number);
-void	fill_int_array(t_env *env, char *line, int number);
+
 #endif

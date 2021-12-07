@@ -22,11 +22,12 @@ void	check_first_last_str(t_env *env, int number)
 		while (cnt < env->world_width)
 		{
 			if (env->world_map[number][cnt] == 0)
-				my_exit (2, env);
+				my_exit(2, env);
 			cnt++;
 		}
 	}
 }
+
 void	better_check_vertical(t_env *env, int number, int cnt)
 {
 	int	vertical;

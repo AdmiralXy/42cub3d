@@ -67,8 +67,7 @@ int	get_len(char *line)
 			tabs++;
 		i++;
 	}
-	int j = i - tabs + tabs * 4;
-	return (j);
+	return (i - tabs + tabs * 4);
 }
 
 int	get_height(t_env *env)
