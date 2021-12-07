@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		//ft_putstr_fd("error: cub3d: please specify the path to the map!\n", 1);
+		ft_error("please specify the path to the map!");
 		exit(1);
 	}
 	(void)av;

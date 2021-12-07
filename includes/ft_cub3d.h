@@ -175,6 +175,7 @@ t_minimap	*ft_minimap_stretch(t_minimap *old_minimap);
 
 // Exit functions
 int			ft_exit(t_env *env);
+void		ft_error(const char *error);
 
 // Moving functions
 int			ft_move_forward(t_env *env);
