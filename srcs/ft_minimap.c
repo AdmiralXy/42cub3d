@@ -55,11 +55,11 @@ void	ft_minimap_to_screen(t_env *env)
 		while (j < env->minimap->width)
 		{
 			if (env->minimap->map[i][j] == 2)
-				ft_put_pixel_oft(env, ft_point(i, j), MP_PLAYER, MP_OFFSET);
+				ft_put_pixel_oft(env, ft_point(j, i), MP_PLAYER, MP_OFFSET);
 			else if (env->minimap->map[i][j] == 1)
-				ft_put_pixel_oft(env, ft_point(i, j), MP_WALLS, MP_OFFSET);
+				ft_put_pixel_oft(env, ft_point(j, i), MP_WALLS, MP_OFFSET);
 			else
-				ft_put_pixel_oft(env, ft_point(i, j), MP_SPACE, MP_OFFSET);
+				ft_put_pixel_oft(env, ft_point(j, i), MP_SPACE, MP_OFFSET);
 			j++;
 		}
 		i++;

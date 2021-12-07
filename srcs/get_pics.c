@@ -115,5 +115,9 @@ int	get_path(t_env *env)
 		side = get_pic_path(env, env->fd);
 		cnt++;
 	}
+	env->textures[NORTH] = ft_get_texture(env, env->swne_path[NORTH]);
+	env->textures[SOUTH] = ft_get_texture(env, env->swne_path[SOUTH]);
+	env->textures[EAST] = ft_get_texture(env, env->swne_path[EAST]);
+	env->textures[WEST] = ft_get_texture(env, env->swne_path[WEST]);
 	return (valid_checker(env));
 }
