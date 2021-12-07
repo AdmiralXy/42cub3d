@@ -10,7 +10,7 @@ int	main(int argc, char **argv)
 		exit(1);
 	}
 	env = malloc(sizeof(t_env));
-	env->map_name = ft_strdup("map.cub");
+	env->map_name = ft_strdup("new.cub");
 	if (!ft_initialize(env))
 		return (1);
 	(void)argv;

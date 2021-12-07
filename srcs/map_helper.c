@@ -68,7 +68,6 @@ int	get_len(char *line)
 		i++;
 	}
 	int j = i - tabs + tabs * 4;
-	// printf("J IS %d\n", j);
 	return (j);
 }
 

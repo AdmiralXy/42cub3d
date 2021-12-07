@@ -16,17 +16,13 @@ void	check_first_end(t_env *env, char *line, int number)
 {
 	int		cnt;
 	char	a;
-	int		tabs;
 
 	cnt = 0;
-	tabs = 0;
 	while (line[cnt] != 0)
 	{
 		a = line[cnt];
 		if (a != '1' && a != ' ' && a != '\t')
 			my_exit(2, env);
-		// if (a == '\t')
-		// 	tabs++;
 		cnt++;
 	}
 	fill_int_array(env, line, number);

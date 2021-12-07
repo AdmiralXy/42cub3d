@@ -30,18 +30,10 @@ void	check_first_last_str(t_env *env, int number)
 void	better_check_vertical(t_env *env, int number, int cnt)
 {
 	int	vertical;
-	int k;
 
 	vertical = 1;
-	for (int i = 0; i < env->world_height; i++)
-	{
-		for (int s = 0; s < env->world_width; s++)
-			printf("%d ", env->world_map[i][s]);
-		puts("");
-	}
 	while (env->world_map[number - vertical][cnt] != 1)
 	{
-		k = env->world_map[number - vertical][cnt+1];
 		if (number - vertical == 0
 			&& env->world_map[number - vertical][cnt] != 1)
 			my_exit(2, env);
