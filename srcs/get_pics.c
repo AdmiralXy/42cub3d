@@ -70,8 +70,8 @@ int	get_pic_path(t_env *env, int fd)
 	while (line[cnt] != '.')
 		cnt++;
 	free(env->swne_path[side]);
-	free(line);
 	env->swne_path[side] = ft_strdup(line + cnt);
+	free(line);
 	return (side);
 }
 
