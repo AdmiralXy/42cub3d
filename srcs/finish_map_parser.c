@@ -23,12 +23,10 @@ void	check_valid(t_env *env, int number, int cnt)
 void	check_middle_str(t_env *env, int number)
 {
 	int	cnt;
-	int	a;
 
 	cnt = 0;
 	while (cnt < env->world_width)
 	{
-		a = env->world_map[number][cnt];
 		if (env->world_map[number][cnt] == 0 ||
 		(env->world_map[number][cnt] >= PLAYER_NORTH
 		&& env->world_map[number][cnt] <= PLAYER_WEST))

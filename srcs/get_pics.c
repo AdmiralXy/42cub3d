@@ -96,9 +96,7 @@ int	valid_checker(t_env *env)
 int	get_path(t_env *env)
 {
 	int	cnt;
-	int	side;
 
-	cnt = 0;
 	env->ceil_color = -1;
 	env->floor_color = -1;
 	env->strs = 0;
@@ -112,7 +110,7 @@ int	get_path(t_env *env)
 	cnt = 0;
 	while (cnt < 6)
 	{
-		side = get_pic_path(env, env->fd);
+		get_pic_path(env, env->fd);
 		cnt++;
 	}
 	env->textures[NORTH] = ft_get_texture(env, env->swne_path[NORTH]);
