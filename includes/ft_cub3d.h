@@ -121,7 +121,6 @@ typedef struct s_raycasting
 	int		hit;
 	int		side;
 	int		line_height;
-	int		pitch;
 	int		draw_start;
 	int		draw_end;
 	double	wall_x;
