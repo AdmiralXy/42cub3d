@@ -23,8 +23,8 @@
 
 // Constants
 # define WIN_TITLE "42cub3d"
-# define WIN_HEIGHT 1366
-# define WIN_WIDTH 768
+# define WIN_WIDTH 1366
+# define WIN_HEIGHT 768
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
@@ -183,7 +183,7 @@ void		ft_put_pixel_oft(t_env *env, t_point point, int color, int offset);
 
 // Raycasting functions
 void		ft_raycasting(t_env *env);
-void		ft_init_rays(t_env *env, t_raycasting *rcs, int x);
+void		ft_init_ray(t_env *env, t_raycasting *rcs, int x);
 
 // Minimap functions
 void		ft_minimap(t_env *env);

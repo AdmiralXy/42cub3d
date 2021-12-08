@@ -48,20 +48,20 @@ int	ft_initialize_mlx(t_env *env)
 	env->mlx = mlx_init();
 	if (!env->mlx)
 		return (0);
-	env->mlx_win = mlx_new_window(env->mlx, WIN_HEIGHT, WIN_WIDTH, WIN_TITLE);
+	env->mlx_win = mlx_new_window(env->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
 	if (!env->mlx_win)
 		return (0);
 	env->bpp = 32;
-	env->size_line = WIN_HEIGHT * 4;
+	env->size_line = WIN_WIDTH * 4;
 	env->endian = 1;
-	env->img_ptr = mlx_new_image(env->mlx, WIN_HEIGHT, WIN_WIDTH);
+	env->img_ptr = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (!env->img_ptr)
 		return (0);
 	env->img_data = mlx_get_data_addr(env->img_ptr, &env->bpp,
 			&env->size_line, &env->endian);
 	if (!env->img_data)
 		return (0);
-	ft_bzero(env->img_data, WIN_WIDTH * WIN_HEIGHT * (env->bpp / 8));
+	ft_bzero(env->img_data, WIN_HEIGHT * WIN_WIDTH * (env->bpp / 8));
 	return (1);
 }
 

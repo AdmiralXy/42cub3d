@@ -17,14 +17,14 @@ void	ft_fill_ceil_floor(t_env *env)
 	int	x;
 	int	y;
 
-	y = WIN_HEIGHT / 2;
-	while (y < WIN_HEIGHT)
+	y = WIN_WIDTH / 2;
+	while (y < WIN_WIDTH)
 	{
 		x = 0;
-		while (x < WIN_HEIGHT * 2)
+		while (x < WIN_WIDTH * 2)
 		{
 			ft_put_pixel(env, ft_point(x, y), (int)env->floor_color);
-			ft_put_pixel(env, ft_point(x, WIN_HEIGHT - y - 1),
+			ft_put_pixel(env, ft_point(x, WIN_WIDTH - y - 1),
 				(int)env->ceil_color);
 			x++;
 		}
@@ -50,14 +50,14 @@ void	ft_raycasting_calculate(t_env *env, t_raycasting *rcs)
 		rcs->perp_wall_dist = (rcs->side_dist_x - rcs->delta_dist_x);
 	else
 		rcs->perp_wall_dist = (rcs->side_dist_y - rcs->delta_dist_y);
-	rcs->line_height = (int)(WIN_HEIGHT / rcs->perp_wall_dist);
+	rcs->line_height = (int)(WIN_WIDTH / rcs->perp_wall_dist);
 	rcs->pitch = 1;
-	rcs->draw_start = -rcs->line_height / 2 + WIN_HEIGHT / 2;
+	rcs->draw_start = -rcs->line_height / 2 + WIN_WIDTH / 2;
 	if (rcs->draw_start < 0)
 		rcs->draw_start = 0;
-	rcs->draw_end = rcs->line_height / 2 + WIN_HEIGHT / 2;
-	if (rcs->draw_end >= WIN_HEIGHT)
-		rcs->draw_end = WIN_HEIGHT - 1;
+	rcs->draw_end = rcs->line_height / 2 + WIN_WIDTH / 2;
+	if (rcs->draw_end >= WIN_WIDTH)
+		rcs->draw_end = WIN_WIDTH - 1;
 	if (rcs->side == 0)
 		rcs->wall_x = env->p.pos_y + rcs->perp_wall_dist * rcs->ray_dir_y;
 	else
@@ -78,8 +78,8 @@ void	ft_raycasting_texturing(t_env *env, t_raycasting *rcs, int x)
 
 	y = rcs->draw_start;
 	rcs->step = 1.0 * env->textures[rcs->tx_n]->height / rcs->line_height;
-	rcs->tex_pos = (rcs->draw_start - rcs->pitch - WIN_HEIGHT / 2
-			+ rcs->line_height / 2) * rcs->step;
+	rcs->tex_pos = (rcs->draw_start - rcs->pitch - WIN_WIDTH / 2
+					+ rcs->line_height / 2) * rcs->step;
 	while (y < rcs->draw_end)
 	{
 		rcs->tex_y = (int)rcs->tex_pos & (env->textures[rcs->tx_n]->height - 1);
@@ -98,12 +98,12 @@ void	ft_raycasting(t_env *env)
 	t_raycasting	rcs;
 	int				x;
 
-	ft_bzero(env->img_data, WIN_WIDTH * WIN_HEIGHT * (env->bpp / 8));
+	ft_bzero(env->img_data, WIN_HEIGHT * WIN_WIDTH * (env->bpp / 8));
 	ft_fill_ceil_floor(env);
 	x = 0;
-	while (x < WIN_HEIGHT)
+	while (x < WIN_WIDTH)
 	{
-		ft_init_rays(env, &rcs, x);
+		ft_init_ray(env, &rcs, x);
 		ft_raycasting_calculate(env, &rcs);
 		ft_raycasting_texturing(env, &rcs, x);
 		x++;

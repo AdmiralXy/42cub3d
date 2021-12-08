@@ -61,9 +61,9 @@ void	ft_calculate_rays(t_env *env, t_raycasting *rcs)
 	}
 }
 
-void	ft_init_rays(t_env *env, t_raycasting *rcs, int x)
+void	ft_init_ray(t_env *env, t_raycasting *rcs, int x)
 {
-	rcs->camera_x = 2 * x / (double) WIN_HEIGHT - 1;
+	rcs->camera_x = 2 * x / (double) WIN_WIDTH - 1;
 	rcs->ray_dir_x = env->p.dir_x + env->p.plane_x * rcs->camera_x;
 	rcs->ray_dir_y = env->p.dir_y + env->p.plane_y * rcs->camera_x;
 	rcs->map_x = (int) env->p.pos_x;

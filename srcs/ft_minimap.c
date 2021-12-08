@@ -83,7 +83,7 @@ void	ft_minimap(t_env *env)
 	int	max_steps;
 	int	min_width;
 
-	min_width = (int)(0.14 * WIN_WIDTH);
+	min_width = (int)(0.14 * WIN_HEIGHT);
 	env->minimap = ft_minimap_init(env);
 	max_steps = 100;
 	while (env->minimap->width < min_width
