@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:07:23 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/07 17:05:32 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/11 14:30:19 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	choose_side(t_env *env, char *line)
 {
-	if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
+	if (line[0] == 'S' && line[1] == 'O')
 		return (SOUTH);
-	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
+	else if (line[0] == 'W' && line[1] == 'E')
 		return (WEST);
-	else if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
+	else if (line[0] == 'N' && line[1] == 'O')
 		return (NORTH);
-	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
+	else if (line[0] == 'E' && line[1] == 'A')
 		return (EAST);
 	else if (line[0] == 'F' && line[1] == ' ')
 		return (FLOOR);
@@ -67,8 +67,11 @@ int	get_pic_path(t_env *env, int fd)
 	}
 	if (env->swne_path[side][0] != '\0')
 		my_exit(1, env);
-	while (line[cnt] != '.')
+	cnt +=2;
+	while (line[cnt] == ' ' || line[cnt] == '\t')
 		cnt++;
+	if (line[cnt] != '.')
+		my_exit(1, env);
 	free(env->swne_path[side]);
 	env->swne_path[side] = ft_strdup(line + cnt);
 	free(line);

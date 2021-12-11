@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:45:53 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/07 17:04:39 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/11 14:30:05 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,6 @@ int	get_height(t_env *env)
 		tmp = get_len(line);
 		if (env->world_width < tmp)
 			env->world_width = tmp;
-		if (check_line(line) == -1)
-		{
-			flag = 1;
-			break ;
-		}
 		free(line);
 		cnt++;
 	}
