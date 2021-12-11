@@ -58,6 +58,7 @@ element can be set in any order in the file.
 * Except for the map, each type of information from an element can be separated
 by one or more space(s).
 * Spaces are a valid part of the map.
+* Minimap with player's position.
 
 ### Requirements & usage
 Project requires:
