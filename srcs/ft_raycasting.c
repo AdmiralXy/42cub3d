@@ -17,15 +17,15 @@ void	ft_fill_ceil_floor(t_env *env)
 	int	x;
 	int	y;
 
-	y = WIN_WIDTH / 2;
+	y = WIN_WIDTH / 3;
 	while (y < WIN_WIDTH)
 	{
 		x = 0;
-		while (x < WIN_WIDTH * 2)
+		while (x < WIN_WIDTH * 3)
 		{
-			ft_put_pixel(env, ft_point(x, y), (int)env->floor_color);
-			ft_put_pixel(env, ft_point(x, WIN_WIDTH - y - 1),
+			ft_put_pixel(env, ft_point(x, WIN_WIDTH / 1.2 - y - 1),
 				(int)env->ceil_color);
+			ft_put_pixel(env, ft_point(x, y), (int)env->floor_color);
 			x++;
 		}
 		y++;
@@ -51,10 +51,10 @@ void	ft_raycasting_calculate(t_env *env, t_raycasting *rcs)
 	else
 		rcs->perp_wall_dist = (rcs->side_dist_y - rcs->delta_dist_y);
 	rcs->line_height = (int)(WIN_WIDTH / rcs->perp_wall_dist);
-	rcs->draw_start = -rcs->line_height / 2 + WIN_WIDTH / 2;
+	rcs->draw_start = -rcs->line_height / 2 + WIN_WIDTH / 2.4;
 	if (rcs->draw_start < 0)
 		rcs->draw_start = 0;
-	rcs->draw_end = rcs->line_height / 2 + WIN_WIDTH / 2;
+	rcs->draw_end = rcs->line_height / 2 + WIN_WIDTH / 2.4;
 	if (rcs->draw_end >= WIN_WIDTH)
 		rcs->draw_end = WIN_WIDTH - 1;
 	if (rcs->side == 0)
@@ -64,10 +64,6 @@ void	ft_raycasting_calculate(t_env *env, t_raycasting *rcs)
 	rcs->wall_x -= floor((rcs->wall_x));
 	ft_set_tx_n(rcs);
 	rcs->tex_x = (int)(rcs->wall_x * (double)(env->textures[rcs->tx_n]->width));
-	if (rcs->side == 0 && rcs->ray_dir_x > 0)
-		rcs->tex_x = env->textures[rcs->tx_n]->width - rcs->tex_x - 1;
-	if (rcs->side == 1 && rcs->ray_dir_y < 0)
-		rcs->tex_x = env->textures[rcs->tx_n]->width - rcs->tex_x - 1;
 }
 
 void	ft_raycasting_texturing(t_env *env, t_raycasting *rcs, int x)
@@ -77,8 +73,8 @@ void	ft_raycasting_texturing(t_env *env, t_raycasting *rcs, int x)
 
 	y = rcs->draw_start;
 	rcs->step = 1.0 * env->textures[rcs->tx_n]->height / rcs->line_height;
-	rcs->tex_pos = (rcs->draw_start - WIN_WIDTH / 2
-					+ rcs->line_height / 2) * rcs->step;
+	rcs->tex_pos = (rcs->draw_start - WIN_WIDTH / 2.4
+			+ rcs->line_height / 2) * rcs->step;
 	while (y < rcs->draw_end)
 	{
 		rcs->tex_y = (int)rcs->tex_pos & (env->textures[rcs->tx_n]->height - 1);
