@@ -16,22 +16,22 @@ int	my_exit(int er_numb, t_env *env)
 {
 	if (er_numb == 1)
 	{
-		ft_error("bad file!");
+		ft_error();
 		ft_exit(env);
 	}
 	if (er_numb == 2)
 	{
-		ft_error("bad map!");
+		ft_error();
 		ft_exit(env);
 	}
 	if (er_numb == 3)
 	{
-		ft_error("two or more players!");
+		ft_error();
 		ft_exit(env);
 	}
 	if (er_numb == 4)
 	{
-		ft_error("malloc error!");
+		ft_error();
 		ft_exit(env);
 	}
 	return (1);

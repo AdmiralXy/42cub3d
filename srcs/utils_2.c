@@ -12,7 +12,7 @@
 
 #include "ft_cub3d.h"
 
-int	checkkkk(t_env *env, int side, char *line)
+int	ft_check(t_env *env, int side, char *line)
 {
 	if (side == FLOOR || side == CEIL)
 	{
@@ -23,7 +23,7 @@ int	checkkkk(t_env *env, int side, char *line)
 	return (1);
 }
 
-void	player(t_env *env, int number, int arr_cnt, int tmp)
+void	ft_player(t_env *env, int number, int arr_cnt, int tmp)
 {
 	if (env->player != 0)
 		my_exit(3, env);

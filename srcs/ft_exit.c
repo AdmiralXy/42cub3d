@@ -12,10 +12,9 @@
 
 #include "ft_cub3d.h"
 
-void	ft_error(const char *error)
+void	ft_error(void)
 {
-	ft_putstr_fd("error: cub3d: ", 1);
-	ft_putendl_fd((char *)error, 1);
+	ft_putendl_fd("Error!", 1);
 }
 
 void	ft_clear_world(t_env *env)

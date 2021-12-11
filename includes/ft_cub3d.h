@@ -168,6 +168,11 @@ int			get_height(t_env *env);
 int			get_cur_str(t_env *env);
 int			validate_symb(char c);
 int			finish_map_parser(t_env *env);
+int			ft_check(t_env *env, int side, char *line);
+int			ft_valid_file(t_env *env);
+void		ft_player(t_env *env, int number, int arr_cnt, int tmp);
+void		skip_empty_lines(t_env *env, char **line);
+void		get_height_p2(t_env *env, char *line, int *cnt, int flag);
 void		better_check_horizontal(t_env *env, int number, int cnt);
 void		better_check_vertical(t_env *env, int number, int cnt);
 void		check_first_last_str(t_env *env, int number);
@@ -192,7 +197,7 @@ t_minimap	*ft_minimap_stretch(t_minimap *old_minimap);
 
 // Exit functions
 int			ft_exit(t_env *env);
-void		ft_error(const char *error);
+void		ft_error(void);
 
 // Moving functions
 int			ft_move_forward(t_env *env);
@@ -201,10 +206,5 @@ int			ft_move_left(t_env *env);
 int			ft_move_right(t_env *env);
 int			ft_camera_left(t_env *env, double angle);
 int			ft_camera_right(t_env *env, double angle);
-int			checkkkk(t_env *env, int side, char *line);
-int			ft_valid_file(t_env *env);
-void		player(t_env *env, int number, int arr_cnt, int tmp);
-void		skip_empty_lines(t_env *env, char **line);
-void		get_height_p2(t_env *env, char *line, int *cnt, int flag);
 
 #endif

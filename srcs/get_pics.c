@@ -59,7 +59,7 @@ int	get_pic_path(t_env *env, int fd)
 	while (line[cnt] == ' ')
 		cnt++;
 	side = choose_side(env, line + cnt);
-	if (checkkkk(env, side, line) == 10)
+	if (ft_check(env, side, line) == 10)
 		return (10);
 	if (env->swne_path[side][0] != '\0')
 		my_exit(1, env);

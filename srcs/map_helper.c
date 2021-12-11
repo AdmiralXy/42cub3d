@@ -95,7 +95,7 @@ void	fill_int_array(t_env *env, char *line, int number)
 		else if (tmp == SYMB_ZERO)
 			env->world_map[number][arr_cnt] = 0;
 		else if (tmp >= PLAYER_NORTH && tmp <= PLAYER_WEST)
-			player(env, number, arr_cnt, tmp);
+			ft_player(env, number, arr_cnt, tmp);
 		arr_cnt++;
 	}
 	fill_int_p2(env, number, arr_cnt);

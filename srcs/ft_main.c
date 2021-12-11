@@ -71,13 +71,16 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_error("usage ./cub3d [path_to_the_map]");
+		ft_error();
 		exit(1);
 	}
 	env = malloc(sizeof(t_env));
 	env->map_name = ft_strdup(argv[1]);
 	if (!ft_valid_file(env))
+	{
+		ft_error();
 		return (1);
+	}
 	if (!ft_initialize(env))
 		return (1);
 	get_path(env);

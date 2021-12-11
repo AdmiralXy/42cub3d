@@ -34,7 +34,7 @@ t_texture	*ft_get_texture(t_env *env, char *path)
 	t->image = mlx_xpm_file_to_image(env->mlx, path, &(t->width), &(t->height));
 	if (!t->image)
 	{
-		ft_error("texture is invalid!");
+		ft_error();
 		exit(1);
 	}
 	t->texture = (int *)mlx_get_data_addr(t->image, &(t->bpp),
