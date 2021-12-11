@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:08:38 by kricky            #+#    #+#             */
-/*   Updated: 2021/12/11 15:01:06 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/11 15:03:15 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 void	check_point_cub_xpm(char *a, int i, t_env *env)
 {
 	char	*dst;
-	int		j;
-	int		b;
+	int		oh;
+	int		uh;
 
-	j = 0;
-	b = 0;
+	oh = 0;
+	uh = 0;
 	if (i == 1)
 		dst = ft_strdup(".cub");
 	else
 	{
 		dst = ft_strdup(".xpm");
-		while (a[j] != 'x')
-			j++;
-		j--;
+		while (a[oh] != 'x')
+			oh++;
+		oh--;
 	}
 	while (!dst || !a)
 		my_exit(1, env);
-	while (a[j])
+	while (a[oh])
 	{
-		if (a[j++] == dst[b++])
+		if (a[oh++] == dst[uh++])
 			;
 		else
 			my_exit(1, env);
