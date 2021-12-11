@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:08:38 by kricky            #+#    #+#             */
-/*   Updated: 2021/12/11 15:03:15 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/11 15:35:40 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	main(int argc, char **argv)
 	}
 	env = malloc(sizeof(t_env));
 	env->map_name = ft_strdup(argv[1]);
+	if (!ft_valid_file(env))
+		return (1);
 	if (!ft_initialize(env))
 		return (1);
 	get_path(env);

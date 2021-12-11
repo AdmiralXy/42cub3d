@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 14:48:04 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/11 15:00:31 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/11 15:37:09 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,24 @@ void	skip_empty_lines(t_env *env, char **line)
 		}
 		free(*line);
 	}
+}
+
+int	ft_valid_file(t_env *env)
+{
+	char	*line;
+	int		fd;
+
+	line = 0;
+	fd = open(env->map_name, O_RDONLY);
+	while (get_next_line(fd, &line) > 0)
+		free(line);
+	close(fd);
+	if (line)
+		free(line);
+	else
+	{
+		free(env->map_name);
+		return (0);
+	}
+	return (1);
 }

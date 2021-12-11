@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:47:18 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/05 19:48:20 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/11 15:19:32 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_str(char *str)
 		cnt++;
 	}
 	cnt = ft_atoi(str);
-	if (cnt < -1 && cnt > 255)
+	if (cnt < -1 || cnt > 255)
 		return (-1);
 	return (cnt);
 }
