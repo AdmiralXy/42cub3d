@@ -6,53 +6,11 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:45:53 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/11 14:30:05 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/11 15:00:20 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
-
-void	get_height_p2(t_env *env, char *line, int *cnt, int flag)
-{
-	if (flag == 1)
-	{
-		while (get_next_line(env->fd, &line))
-		{
-			if (check_line(line) == 1)
-			{
-				free(line);
-				my_exit(2, env);
-			}
-			free(line);
-		}
-		if (check_line(line) == 1)
-		{
-			free(line);
-			my_exit(2, env);
-		}
-	}
-	else
-	{
-		if (check_line(line) == 1)
-			(*cnt)++;
-	}
-	free(line);
-	close(env->fd);
-}
-
-void	skip_empty_lines(t_env *env, char **line)
-{
-	while (get_next_line(env->fd, line))
-	{
-		env->strs++;
-		if (check_line(*line) == 1)
-		{
-			free(*line);
-			break ;
-		}
-		free(*line);
-	}
-}
 
 int	get_len(char *line)
 {
@@ -123,9 +81,9 @@ void	fill_int_array(t_env *env, char *line, int number)
 	int	tmp;
 	int	arr_cnt;
 
-	cnt = 0;
+	cnt = -1;
 	arr_cnt = 0;
-	while (line[cnt] != 0)
+	while (line[++cnt] != 0)
 	{
 		tmp = validate_symb(line[cnt]);
 		if (tmp == SPACE)
@@ -137,17 +95,8 @@ void	fill_int_array(t_env *env, char *line, int number)
 		else if (tmp == SYMB_ZERO)
 			env->world_map[number][arr_cnt] = 0;
 		else if (tmp >= PLAYER_NORTH && tmp <= PLAYER_WEST)
-		{
-			if (env->player != 0)
-				my_exit(3, env);
-			env->world_map[number][arr_cnt] = 0;
-			env->p.pos_x = number + 0.5;
-			env->p.pos_y = arr_cnt + 0.5;
-			env->player = 1;
-			env->p.initial_direction = tmp - 11;
-		}
+			player(env, number, arr_cnt, tmp);
 		arr_cnt++;
-		cnt++;
 	}
 	fill_int_p2(env, number, arr_cnt);
 }

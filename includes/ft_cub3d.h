@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cub3d.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kricky <kricky@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:08:38 by kricky            #+#    #+#             */
-/*   Updated: 2021/12/05 18:08:48 by kricky           ###   ########.fr       */
+/*   Updated: 2021/12/11 14:59:56 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,5 +201,8 @@ int			ft_move_left(t_env *env);
 int			ft_move_right(t_env *env);
 int			ft_camera_left(t_env *env, double angle);
 int			ft_camera_right(t_env *env, double angle);
-
+int			checkkkk(t_env *env, int side, char *line);
+void		player(t_env *env, int number, int arr_cnt, int tmp);
+void		skip_empty_lines(t_env *env, char **line);
+void		get_height_p2(t_env *env, char *line, int *cnt, int flag);
 #endif

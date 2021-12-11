@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:08:38 by kricky            #+#    #+#             */
-/*   Updated: 2021/12/11 14:36:41 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/11 15:01:06 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	check_point_cub_xpm(char *a, int i, t_env *env)
 	free(dst);
 }
 
-void	check_cub(char **av,  t_env *env)
+void	check_cub(char **av, t_env *env)
 {
 	int		i;
 	int		j;

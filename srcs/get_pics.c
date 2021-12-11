@@ -6,7 +6,7 @@
 /*   By: faggar <faggar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:07:23 by faggar            #+#    #+#             */
-/*   Updated: 2021/12/11 14:30:19 by faggar           ###   ########.fr       */
+/*   Updated: 2021/12/11 14:49:28 by faggar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,11 @@ int	get_pic_path(t_env *env, int fd)
 	while (line[cnt] == ' ')
 		cnt++;
 	side = choose_side(env, line + cnt);
-	if (side == FLOOR || side == CEIL)
-	{
-		fill_floor_ceil(env, line, side);
-		free (line);
+	if (checkkkk(env, side, line) == 10)
 		return (10);
-	}
 	if (env->swne_path[side][0] != '\0')
 		my_exit(1, env);
-	cnt +=2;
+	cnt += 2;
 	while (line[cnt] == ' ' || line[cnt] == '\t')
 		cnt++;
 	if (line[cnt] != '.')
