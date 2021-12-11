@@ -91,6 +91,7 @@ int	ft_valid_file(t_env *env)
 	else
 	{
 		free(env->map_name);
+		free(env);
 		return (0);
 	}
 	return (1);
