@@ -69,11 +69,11 @@ void	ft_init_ray(t_env *env, t_raycasting *rcs, int x)
 	rcs->map_x = (int) env->p.pos_x;
 	rcs->map_y = (int) env->p.pos_y;
 	if (rcs->ray_dir_x == 0)
-		rcs->delta_dist_x = 77028;
+		rcs->delta_dist_x = INT_MAX;
 	else
 		rcs->delta_dist_x = fabs(1 / rcs->ray_dir_x);
 	if (rcs->ray_dir_y == 0)
-		rcs->delta_dist_y = 77028;
+		rcs->delta_dist_y = INT_MAX;
 	else
 		rcs->delta_dist_y = fabs(1 / rcs->ray_dir_y);
 	rcs->hit = 0;

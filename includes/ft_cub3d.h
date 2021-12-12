@@ -20,11 +20,12 @@
 # include <unistd.h>
 # include <math.h>
 # include <stdio.h>
+# include <limits.h>
 
 // Constants
 # define WIN_TITLE "42cub3d"
-# define WIN_WIDTH 1366
-# define WIN_HEIGHT 768
+# define WIN_WIDTH 1440
+# define WIN_HEIGHT 900
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
