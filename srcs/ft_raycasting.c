@@ -63,7 +63,8 @@ void	ft_raycasting_calculate(t_env *env, t_raycasting *rcs)
 		rcs->wall_x = env->p.pos_x + rcs->perp_wall_dist * rcs->ray_dir_x;
 	rcs->wall_x -= floor((rcs->wall_x));
 	ft_set_tx_n(rcs);
-	rcs->tex_x = (int)(rcs->wall_x * (double)(env->textures[rcs->tx_n]->width));
+	rcs->tex_x = (int)(rcs->wall_x
+			* (double)(env->textures[rcs->tx_n]->width));
 }
 
 void	ft_raycasting_texturing(t_env *env, t_raycasting *rcs, int x)
@@ -72,9 +73,9 @@ void	ft_raycasting_texturing(t_env *env, t_raycasting *rcs, int x)
 	int	y;
 
 	y = rcs->draw_start;
-	rcs->step = 1.0 * env->textures[rcs->tx_n]->height / rcs->line_height;
-	rcs->tex_pos = (rcs->draw_start - WIN_HEIGHT / 2
-			+ rcs->line_height / 2) * rcs->step;
+	rcs->step = (double) env->textures[rcs->tx_n]->height / rcs->line_height;
+	rcs->tex_pos = (rcs->draw_start - (double) WIN_HEIGHT / 2
+			+ (double) rcs->line_height / 2) * rcs->step;
 	while (y < rcs->draw_end)
 	{
 		rcs->tex_y = (int)rcs->tex_pos & (env->textures[rcs->tx_n]->height - 1);
