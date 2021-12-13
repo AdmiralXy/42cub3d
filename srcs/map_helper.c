@@ -38,12 +38,14 @@ int	get_height(t_env *env)
 	cnt = 0;
 	skip_empty_lines(env, &line);
 	flag = 0;
+	env->line_helper = line;
 	while (get_next_line(env->fd, &line))
 	{
 		tmp = get_len(line);
 		if (env->world_width < tmp)
 			env->world_width = tmp;
 		free(line);
+		line = 0;
 		cnt++;
 	}
 	tmp = get_len(line);

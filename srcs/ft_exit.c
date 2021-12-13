@@ -49,6 +49,8 @@ void	ft_clear_textures(t_env *env)
 
 int	ft_exit(t_env *env)
 {
+	if (env->line_helper)
+		free(env->line_helper);
 	ft_clear_textures(env);
 	ft_clear_world(env);
 	mlx_destroy_image(env->mlx, env->img_ptr);

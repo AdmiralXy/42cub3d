@@ -70,9 +70,11 @@ void	skip_empty_lines(t_env *env, char **line)
 		if (check_line(*line) == 1)
 		{
 			free(*line);
+			(*line) = 0;
 			break ;
 		}
 		free(*line);
+		(*line) = 0;
 	}
 }
 

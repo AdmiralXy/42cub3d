@@ -96,5 +96,6 @@ int	ft_initialize(t_env *env)
 	env->textures[SOUTH] = 0;
 	env->textures[WEST] = 0;
 	env->textures[EAST] = 0;
+	env->line_helper = 0;
 	return (1);
 }

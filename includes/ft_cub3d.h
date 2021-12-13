@@ -134,6 +134,7 @@ typedef struct s_raycasting
 typedef struct s_env
 {
 	void		*mlx;
+	char		*line_helper;
 	void		*mlx_win;
 	int			bpp;
 	int			size_line;
