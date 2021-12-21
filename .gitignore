@@ -6,3 +6,4 @@
 cub3d
 cub3d.dSYM
 *.tmp
+.DS_Store
